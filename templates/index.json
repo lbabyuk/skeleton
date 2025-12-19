@@ -12,9 +12,46 @@
     "main": {
       "type": "hello-world",
       "settings": {}
+    },
+    "image_banner_4YBXHW": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_jMwP6j": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image banner",
+            "heading_size": "h1"
+          }
+        },
+        "text_8fQCgF": {
+          "type": "text",
+          "settings": {
+            "text": "Give customers details about the banner image or content on the template.",
+            "text_style": "body"
+          }
+        },
+        "button_EmfwB6": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_jMwP6j",
+        "text_8fQCgF",
+        "button_EmfwB6"
+      ],
+      "name": "t:sections.image_banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/cta.png"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "image_banner_4YBXHW"
   ]
 }
