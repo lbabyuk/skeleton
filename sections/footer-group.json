@@ -34,12 +34,20 @@
             "heading": "Company",
             "menu": "footer-company"
           }
+        },
+        "link_list_Y4bPhU": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Menu",
+            "menu": "footer-menu"
+          }
         }
       },
       "block_order": [
         "link_list_bEbtKg",
         "link_list_wUgCmV",
-        "link_list_kMYiMf"
+        "link_list_kMYiMf",
+        "link_list_Y4bPhU"
       ],
       "settings": {}
     }
