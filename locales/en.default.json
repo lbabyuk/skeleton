@@ -13,6 +13,11 @@
     "comment_form_submit": "Post",
     "comment_form_title": "Add a comment"
   },
+  "footer": {
+    "company_name": "Stellar Soft",
+    "term_of_use": "Terms of Use",
+    "privacy_cookie_policy": "Privacy & Cookie Policy"
+  },
   "cart": {
     "checkout": "Checkout",
     "title": "Cart",

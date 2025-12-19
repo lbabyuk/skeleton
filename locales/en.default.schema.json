@@ -71,6 +71,36 @@
       "title": "Title",
       "subtitle": "Subtitle",
       "normal": "Normal text"
-    },
+    }
+  },
+  "footer": {
+    "name": "Footer",
+    "blocks": {
+      "link_list": {
+        "name": "Menu",
+        "settings": {
+          "heading": {
+            "label": "Heading",
+            "default": "Quick links"
+          },
+          "menu": {
+            "label": "Menu"
+          }
+        }
+      },
+      "text": {
+        "name": "Text",
+        "settings": {
+          "heading": {
+            "label": "Heading",
+            "default": "Heading"
+          },
+          "subtext": {
+            "label": "Subtext",
+            "default": "<p>Share contact information, store details, and brand content with your customers.</p>"
+          }
+        }
+      }
+    }
   }
 }

@@ -1,0 +1,36 @@
+{% comment %}
+  Footer links snippet
+  Usage:
+  {%  render 'footer-links', layout: 'desktop' or 'mobile' %}
+{% endcomment %}
+
+{%- for block in section.blocks -%}
+  {%- if layout == 'desktop' -%}
+    <div class="footer__links--list flex flex-col gap-4">
+      <p class="body">{{ block.settings.heading }}</p>
+  {%- else -%}
+    <details class="footer__links--list flex flex-col py-4">
+      <summary class="body">{{ block.settings.heading }}</summary>
+  {%- endif -%}
+
+  {%- case block.type -%}
+    {%- when 'link_list' -%}
+      {%- if block.settings.menu != blank -%}
+        <ul class="flex flex-col gap-3 {% if layout == 'mobile' %}pt-4{% endif %}">
+          {%- for link in block.settings.menu.links -%}
+            <li class="subtitle">
+              <a href="{{ link.url }}">
+                {{ link.title | escape }}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+  {%- endcase -%}
+
+  {%- if layout == 'desktop' -%}
+    </div>
+  {%- else -%}
+    </details>
+  {%- endif -%}
+{%- endfor -%}
