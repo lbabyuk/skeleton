@@ -8,5 +8,9 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "type_primary_font": "poppins_n4",
+    "foreground_color": "#111111",
+    "content_for_index": []
+  }
 }
