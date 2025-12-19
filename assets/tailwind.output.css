@@ -3,12 +3,19 @@
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-sans: "Poppins", sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
+    --h1-mobile: 1.875rem;
+    --h1-mobile-line: 2.25rem;
+    --h2-mobile: 1.5rem;
+    --h2-mobile-line: 2rem;
+    --body-large: 1rem;
+    --body-large-line: 1.5rem;
+    --body-medium: 0.875rem;
+    --body-medium-line: 1.25rem;
   }
 }
 @layer base {
@@ -190,6 +197,27 @@
   }
   .filter {
     filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  }
+}
+@layer components {
+  .h1 {
+    font-size: var(--h1-mobile);
+    line-height: var(--h1-mobile-line);
+  }
+  .h2 {
+    font-size: var(--h2-mobile);
+    line-height: var(--h2-mobile-line);
+  }
+  .body {
+    font-size: var(--body-large);
+    line-height: var(--body-large-line);
+  }
+  .subtitle {
+    font-size: var(--body-medium);
+    line-height: var(--body-medium-line);
+  }
+  .caption-with-letter-spacing {
+    text-transform: uppercase;
   }
 }
 @property --tw-rotate-x {
