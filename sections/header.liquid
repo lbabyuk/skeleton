@@ -1,56 +1,60 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+<header class="full-width header">
+  <div class="header__container flex justify-between items-center h-14 w-full md:h-21 md:py-7.5 py-4 px-4 md:px-15">
+    <div class="header__logo hidden md:block">
+      <a href="{{ routes.root_url }}" aria-label="Go to home page" class="logo">
+        <span aria-hidden="true">
+          {{ 'logo-icon.svg' | inline_asset_content }}
+        </span>
+      </a>
+    </div>
+    <button
+      class="header__button block md:hidden cursor-pointer"
+      type="button"
+      aria-controls="main-navigation"
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      aria-label="Open menu"
+    >
+      <span aria-hidden="true">
+        {{ 'menu-icon.svg' | inline_asset_content }}
+      </span>
+    </button>
+    <nav class="header__menu md:flex gap-8 hidden text-base" aria-label="Primary navigation">
+      {%- for link in linklists['main-menu'].links -%}
+        <a href="{{link.url}}" class="{% if link.active == true %}text-indigo-600{% endif %}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="header__cart relative">
+      <a
+        href="{{ routes.cart_url }}"
+        class="relative transition-colors duration-300 group overflow-visible!"
+        aria-label="View cart with {{ cart.item_count }} items"
+      >
+        {%- if cart.item_count > 0 -%}
+          <div class="cart-count-bubble">
+            <span class="sr-only">{{ cart.item_count }} items</span>
+            <sup
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              class="
+                absolute w-5 h-5
+                flex items-center justify-center top-0 left-4
+                 -translate-x-1/4 -translate-y-1/4 rounded-full border border-black bg-black text-white group-hover:border-0 group-hover:bg-indigo-500  group-hover:text-white
+              "
+            >
+              {{- cart.item_count -}}
+            </sup>
+          </div>
+        {%- endif -%}
 
-  <div class="header__menu">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
-
-  <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      {{ 'icon-account.svg' | inline_asset_content | link_to: routes.account_url }}
-    {% endif %}
-
-    <a href="{{ routes.cart_url }}">
-      {% if cart.item_count > 0 %}
-        <sup>{{ cart.item_count }}</sup>
-      {% endif %}
-
-      {{ 'icon-cart.svg' | inline_asset_content }}
-    </a>
+        <span class="transition-colors duration-300 group-hover:text-indigo-500" aria-hidden="true">
+          {{ 'icon-cart.svg' | inline_asset_content }}
+        </span>
+      </a>
+    </div>
   </div>
 </header>
-
-{% stylesheet %}
-  header {
-    height: 5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  header a {
-    position: relative;
-    text-decoration: none;
-    color: var(--color-foreground);
-  }
-  header a sup {
-    position: absolute;
-    left: 100%;
-    overflow: hidden;
-    max-width: var(--page-margin);
-  }
-  header svg {
-    width: 2rem;
-  }
-  header .header__menu,
-  header .header__icons {
-    display: flex;
-    gap: 1rem;
-  }
-{% endstylesheet %}
 
 {% schema %}
 {

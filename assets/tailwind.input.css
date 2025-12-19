@@ -66,4 +66,62 @@
   .caption-with-letter-spacing {
     text-transform: uppercase;
   }
+
+  header {
+    @apply border-b;
+    border-color: var(--color-light-gray);
+  }
+  .header,
+  .footer,
+  .reviews {
+    display: grid;
+    grid-template-columns: var(--content-grid);
+  }
+
+  .header__container,
+  .footer__container,
+  .reviews__container {
+    grid-column: 2;
+  }
+
+  header .logo svg {
+    width: 100px;
+    height: 24px;
+  }
+
+  header .header__cart svg,
+  header .header__button svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  header nav a {
+    @apply hover:text-indigo-600 transition-colors duration-300;
+  }
+
+  .button--primary,
+  .button--secondary {
+    @apply px-8 py-4;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+  }
+
+  .button--primary {
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+  }
+
+  .button--primary:hover {
+    background-color: var(--btn-primary-bg-hover);
+  }
+
+  .button--secondary {
+    background-color: var(--btn-secondary-bg);
+    color: var(--btn-secondary-text);
+  }
+
+  .button--secondary:hover {
+    background-color: var(--btn-secondary-bg-hover);
+    color: var(--btn-secondary-text-hover);
+  }
 }
