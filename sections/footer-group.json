@@ -27,11 +27,19 @@
             "heading": "Help",
             "menu": "footer-help"
           }
+        },
+        "link_list_kMYiMf": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Company",
+            "menu": "footer-company"
+          }
         }
       },
       "block_order": [
         "link_list_bEbtKg",
-        "link_list_wUgCmV"
+        "link_list_wUgCmV",
+        "link_list_kMYiMf"
       ],
       "settings": {}
     }
