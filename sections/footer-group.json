@@ -13,10 +13,27 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {
-        "menu": "",
-        "show_payment_icons": true
-      }
+      "blocks": {
+        "link_list_bEbtKg": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Resourses",
+            "menu": "footer"
+          }
+        },
+        "link_list_wUgCmV": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Help",
+            "menu": "footer-help"
+          }
+        }
+      },
+      "block_order": [
+        "link_list_bEbtKg",
+        "link_list_wUgCmV"
+      ],
+      "settings": {}
     }
   },
   "order": [
