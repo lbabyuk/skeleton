@@ -33,8 +33,8 @@
         "button_EmfwB6": {
           "type": "button",
           "settings": {
-            "button_label": "Button label",
-            "button_link": "",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/all",
             "button_style_secondary": false
           }
         }
