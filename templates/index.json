@@ -9,42 +9,6 @@
  */
 {
   "sections": {
-    "image_banner_4YBXHW": {
-      "type": "image-banner",
-      "blocks": {
-        "heading_jMwP6j": {
-          "type": "heading",
-          "settings": {
-            "heading": "Step Into Next-Level Comfort",
-            "heading_size": "h2"
-          }
-        },
-        "text_8fQCgF": {
-          "type": "text",
-          "settings": {
-            "text": "Experience the perfect mix of style, support, and all-day cushioning with Nike Air Max Plus.",
-            "text_style": "body"
-          }
-        },
-        "button_EmfwB6": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop Now",
-            "button_link": "shopify://collections/all",
-            "button_style_secondary": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_jMwP6j",
-        "text_8fQCgF",
-        "button_EmfwB6"
-      ],
-      "name": "t:sections.image_banner.presets.name",
-      "settings": {
-        "image": "shopify://shop_images/cta.png"
-      }
-    },
     "collections_LJ8FtQ": {
       "type": "collections",
       "name": "t:general.collections_grid",
@@ -55,7 +19,6 @@
     }
   },
   "order": [
-    "image_banner_4YBXHW",
     "collections_LJ8FtQ"
   ]
 }
