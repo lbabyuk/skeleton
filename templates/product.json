@@ -11,10 +11,82 @@
   "sections": {
     "main": {
       "type": "product",
+      "blocks": {
+        "title_eapfBp": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating_mceLCd": {
+          "type": "rating",
+          "settings": {}
+        },
+        "description_HiyUPx": {
+          "type": "description",
+          "settings": {}
+        },
+        "price_VtJaRk": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_JhAPd3": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "customer_benefits_NAYM3N": {
+          "type": "customer_benefits",
+          "settings": {}
+        },
+        "collapsible_rows_ErqAqq": {
+          "type": "collapsible_rows",
+          "settings": {
+            "title": "SIZE & FIT",
+            "metafield": "size_fit"
+          }
+        },
+        "collapsible_rows_7YP77W": {
+          "type": "collapsible_rows",
+          "settings": {
+            "title": "PRODUCT NOTES",
+            "metafield": "product_notes"
+          }
+        },
+        "collapsible_rows_hPrHBa": {
+          "type": "collapsible_rows",
+          "settings": {
+            "title": "DELIVERY & RETURNS",
+            "metafield": "return_policy"
+          }
+        }
+      },
+      "block_order": [
+        "title_eapfBp",
+        "rating_mceLCd",
+        "description_HiyUPx",
+        "price_VtJaRk",
+        "variant_picker_JhAPd3",
+        "customer_benefits_NAYM3N",
+        "collapsible_rows_ErqAqq",
+        "collapsible_rows_7YP77W",
+        "collapsible_rows_hPrHBa"
+      ],
+      "settings": {}
+    },
+    "recommended_products_PPjAzP": {
+      "type": "recommended-products",
+      "name": "Recommended products",
+      "settings": {
+        "heading": "Recommended Products"
+      }
+    },
+    "reviews_4eD8wp": {
+      "type": "reviews",
+      "name": "Reviews",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "recommended_products_PPjAzP",
+    "reviews_4eD8wp"
   ]
 }
