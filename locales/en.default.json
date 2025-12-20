@@ -31,7 +31,8 @@
     "checkout": "Checkout",
     "title": "Cart",
     "update": "Update",
-    "remove": "Remove"
+    "remove": "Remove",
+    "quantity": "Quantity"
   },
   "customers": {
     "login": {
@@ -62,5 +63,67 @@
     "submit": "Search",
     "no_results_html": "No results found for {{ terms }}",
     "results_for_html": "{{ count }} results found for {{ terms }}"
+  },
+  "buttons": {
+    "shop_now": "Shop Now",
+    "add_to_bag": "Add To Bag",
+    "size_guide": "Size Guide"
+  },
+  "reviews": {
+    "empty_name": "Anonymous",
+    "empty_city": "Unknown",
+    "empty_review": "Amazing product, completely met my expectations!",
+    "title": "Reviews",
+    "out_of_stars": "{{ count }} out of 5 stars"
+  },
+  "products": {
+    "product": {
+      "no_recommended_products": "No recommended products",
+      "on_sale": "On sale",
+      "highly_rated": "Highly Rated",
+      "best_seller": "Best Seller",
+      "regular_price": "Regular price",
+      "currant_price": "Currant price",
+      "add_to_bag": "Add To Bag",
+      "sold_out": "Sold Out",
+      "select_color": "Select color",
+      "select_size": "Select Size:",
+      "free_shipping": "Free U.S. Shipping Over $150",
+      "safe_checkout": "Safe & Secure Checkout",
+      "after_pay_checkout": "Afterpay available at checkout",
+      "media_carousel": "Media carousel",
+      "media_gallery_viewer": "Media gallery",
+      "media_main_images": "Main images",
+      "media_thumbnail_images": "Thumb images",
+      "product_description": "Description",
+      "size_and_fit_title": "SIZE & FIT",
+      "product_notes_title": "PRODUCT NOTES",
+      "delivery_and_returns_title": "DELIVERY & RETURNS",
+      "sku": "SKU",
+      "currently_unavailable": "Product is currently unavailable",
+      "in_stock": "In Stock",
+      "out_of_stock": "Out Of Stock",
+      "running_out": "Running Out",
+      "benefits": "Customer benefits"
+    }
+  },
+  "slider": {
+    "slideshow": {
+      "previous_slideshow": "previous slideshow",
+      "next_slideshow": "next slideshow"
+    }
+  },
+  "recommended-products": {
+    "settings": {
+      "heading": {
+        "label": "Recommended products"
+      },
+      "paragraph": {
+        "default": "Recommended Products"
+      }
+    }
+  },
+  "header": {
+    "cart_count": "Cart count"
   }
 }

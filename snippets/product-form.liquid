@@ -1,0 +1,74 @@
+<div class="product__form">
+  {%- form 'product', product, class: 'form', data-type: 'add-to-cart-form' -%}
+    <div class="flex flex-col">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'variant_picker' -%}
+            <div class="flex flex-col gap-6 pb-6 md:pb-8">
+              {%- unless product.has_only_default_variant -%}
+                <option-picker data-section-id="{{ section.id }}" {{ shopify_attributes }}>
+                  {% render 'product-options' %}
+                </option-picker>
+              {%- endunless -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'quantity_selector' -%}
+            <div class="product_quantity flex flex-col gap-2 pb-4" {{ shopify_attributes }}>
+              {% render 'product-quantity' %}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+
+      <input
+        type="hidden"
+        name="id"
+        id="selected-variant-id"
+        value="{{ product.selected_or_first_available_variant.id }}"
+        class="sr-only"
+        aria-hidden="true"
+      >
+      <button
+        type="submit"
+        name="add"
+        class="
+          add-to-cart-button button--secondary cursor-pointer w-full
+          disabled:cursor-not-allowed transition-colors duration-300
+          focus-visible
+        "
+        data-add-to-bag-text="{{ 'products.product.add_to_bag' | t | escape }}"
+        data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
+        {% unless product.selected_or_first_available_variant.available %}
+          disabled
+        {% endunless %}
+      >
+        <span aria-live="polite" aria-hidden="true">
+          {%- if product.selected_or_first_available_variant.available -%}
+            {{ 'products.product.add_to_bag' | t | escape }}
+          {%- else -%}
+            {{ 'products.product.sold_out' | t | escape }}
+          {%- endif -%}
+        </span>
+        <span class="sr-only">
+          {% if product.selected_or_first_available_variant.available %}
+            {{ 'products.product.add_to_bag' | t | escape }}
+          {% else %}
+            {{ 'products.product.sold_out' | t | escape }}
+          {% endif %}
+        </span>
+      </button>
+      <div
+        class="form-message min-h-5 transition-opacity duration-300 pointer-events-none subtitle {% unless product.selected_or_first_available_variant.available %}text-red-500{% endunless %}"
+        role="status"
+        aria-live="polite"
+      >
+        {% unless product.selected_or_first_available_variant.available -%}
+          {{- 'products.product.currently_unavailable' | t -}}
+        {%- endunless %}
+      </div>
+    </div>
+  {%- endform -%}
+</div>

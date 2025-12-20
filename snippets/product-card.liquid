@@ -1,0 +1,32 @@
+{%- comment -%}
+  Reusable Product Card Snippet
+  Usage:
+    {% render 'product-card', product: product %}
+{%- endcomment -%}
+
+<div class="product-card flex flex-col">
+  <a href="{{ product.url }}" class="product-image-link">
+    {%- if product.featured_image != blank -%}
+      {{
+        product.featured_image
+        | image_url: width: 312, height: 312
+        | image_tag:
+          loading: 'lazy',
+          sizes: '(min-width: 768px) 312px, 100vw',
+          class: 'w-full h-auto rounded-xl transform transition-transform duration-500 ease-in-out hover:scale-105',
+          alt: product.featured_image.alt
+      }}
+    {%- else -%}
+      {{ 'product-2' | placeholder_svg_tag: 'placeholder-img ' }}
+    {%- endif -%}
+  </a>
+
+  <a href="{{ product.url }}" class="product-info flex flex-col gap-2 pt-4">
+    <span class="product-name body hover:underline underline-offset-4">
+      {{ product.title | escape }}
+    </span>
+    <span class="product-price body">
+      {{ product.price | money_with_currency }}
+    </span>
+  </a>
+</div>

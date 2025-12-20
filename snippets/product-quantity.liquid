@@ -1,0 +1,16 @@
+{% comment %}
+  Product quantity snipper
+  usage: {% render 'product-quantity' %}
+{% endcomment %}
+
+<label for="Quantity-{{ section.id }}" class="subtitle"> {{ 'cart.quantity' | t }} </label>
+<div class="product_quantity__count">
+  <input
+    type="number"
+    name="quantity"
+    id="Quantity-{{ section.id }}"
+    value="{{ initial_quantity }}"
+    min="1"
+    class="product_quantity--input w-20 px-3 py-2 subtitle focus:outline-none focus:ring-1"
+  >
+</div>

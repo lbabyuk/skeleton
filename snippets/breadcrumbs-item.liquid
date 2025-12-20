@@ -1,0 +1,16 @@
+{% comment %}
+  Breadcrumbs item snippet
+  Usage:  {% render 'breadcrumbs-item', title: page.title, url: page.url %}
+{% endcomment %}
+
+<li class="breadcrumbs__item inline-block">
+  <a
+    class="breadcrumbs__link cursor-pointer subtitle text-inherit font-normal no-underline"
+    href="{{ url }}"
+    {% if current %}
+      aria-current="page"
+    {% endif %}
+  >
+    {{ title }}
+  </a>
+</li>

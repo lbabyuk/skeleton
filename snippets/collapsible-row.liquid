@@ -1,0 +1,38 @@
+{% comment %}
+  {%- comment -%}
+    Render snippet: collapsible-row
+    usage:
+    {% render 'collapsible-row', metafield: metafield_key, title: title %}
+
+  {%- endcomment -%}
+{% endcomment %}
+
+{%- if metafield and metafield.value != blank -%}
+  <div class="accordion-row">
+    <details class="p-4 border border-r border-l">
+      <summary>
+        <span class="body">{{ title | upcase }}</span>
+      </summary>
+      <div class="product__accordion-content pt-4">
+        {%- if metafield.type contains 'list' -%}
+          <ul>
+            {%- for item in metafield.value -%}
+              <li class="subtitle">{{ item }}</li>
+            {%- endfor -%}
+          </ul>
+        {%- elsif metafield.type contains 'multi_line_text_field' -%}
+          <ul class="list-disc list-inside flex flex-col gap-2">
+            {%- assign lines = metafield.value | newline_to_br | split: '<br />' -%}
+            {%- for line in lines -%}
+              {%- if line != blank -%}
+                <li class="subtitle">{{ line }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- else -%}
+          <span class="text subtitle">{{ metafield | metafield_text }}</span>
+        {%- endif -%}
+      </div>
+    </details>
+  </div>
+{% endif %}

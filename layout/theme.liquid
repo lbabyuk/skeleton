@@ -25,14 +25,17 @@
 
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
     {{ 'tailwind.output.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body>
     {% sections 'header-group' %}
     <main id="MainContent" role="main" tabindex="-1" class="flex-1">
+      {% render 'breadcrumbs' %}
       {{ content_for_layout }}
     </main>
 
     {% sections 'footer-group' %}
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
   </body>
 </html>

@@ -1,41 +1,48 @@
 {% comment %}
   This section is used in the collection template to render collection page
   listing all products within a collection.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
 {% endcomment %}
 
-<h1>{{ collection.title }}</h1>
+<div class="collection__container">
+  <div class="collection__container--content flex flex-col py-15 md:py-20 gap-8 md:gap-12 px-4 md:px-15">
+    <h1 class="h1">{{ collection.title }}</h1>
 
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
-        </div>
-      </div>
-    {% endfor %}
+    <div class="collection-products">
+      {% paginate collection.products by 20 %}
+        {% for product in collection.products %}
+          <div class="collection-product flex flex-col gap-4">
+            {% if product.featured_image %}
+              {% render 'image',
+                class: 'collection-product__image',
+                image: product.featured_image,
+                url: product.url,
+                width: 400,
+                height: 400,
+                crop: 'center'
+              %}
+            {% endif %}
+            <div class="collection-product__content  flex flex-col gap-1">
+              <p class="body hover:underline decoration-gray-900">
+                {{ product.title | escape | link_to: product.url }}
+              </p>
+              <p class="body product-price">{{ product.price | money }}</p>
+            </div>
+          </div>
+        {% endfor %}
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
+        {{ paginate | default_pagination }}
+      {% endpaginate %}
+    </div>
+  </div>
 </div>
 
 {% stylesheet %}
   .collection-products {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
   }
 {% endstylesheet %}
 

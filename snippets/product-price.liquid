@@ -1,0 +1,38 @@
+{% comment %}
+  Renders product price
+
+  Usage:
+  {% render 'product-price', product: product %}
+{% endcomment %}
+<div
+  id="product_price"
+  class="product_price price-{{ section.id }} flex gap-1.5"
+  aria-live="polite"
+  {{ shopify_attributes }}
+>
+  {%- assign product_price = product.selected_or_first_available_variant -%}
+  {%- if product_price.compare_at_price > product_price.price -%}
+    <span
+      class="compare_at_price body line-through"
+      aria-label="{{ 'products.product.regular_price' | t }}"
+    >
+      {{- product_price.compare_at_price | money_with_currency -}}
+      <span class="sr-only">{{ 'products.product.regular_price' | t | escape }}</span>
+    </span>
+    <span
+      class="sr-only"
+    >
+      {{- 'products.product.on_sale' | t | escape -}}
+    </span>
+  {%- endif -%}
+  {% if product.price != blank %}
+    <span class="currant_price body" aria-label="Current price">
+      {{- product_price.price | money_with_currency | escape -}}
+    </span>
+    <span class="sr-only">
+      {{- 'products.product.currant_price' | t | escape -}}
+      :
+      {{ product_price.price | money_with_currency }}
+    </span>
+  {% endif %}
+</div>

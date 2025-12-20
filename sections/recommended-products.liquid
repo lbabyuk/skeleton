@@ -1,0 +1,36 @@
+<div class="relative" id="Recommended-products-{{ section.id }}">
+  <recommended-products
+    data-product-handle="{{ product.handle }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+  >
+    <div class="recommended__products--container relative grid grid-cols-1 pt-20 px-4 md:px-15">
+      <div class="slider-grid w-full">
+        {% render 'recommended-products-slider',
+          recommendations: recommendations,
+          heading: section.settings.heading,
+          section_id: section.id
+        %}
+      </div>
+    </div>
+  </recommended-products>
+  <script src="{{ 'recommended-products.js' | asset_url }}" defer></script>
+  <script src="{{ 'recommended-products-slider.js' | asset_url }}" defer></script>
+</div>
+
+{% schema %}
+{
+  "name": "Recommended products",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "t:sections.recommended-products.settings.paragraph.default",
+      "label": "t:sections.recommended-products.settings.heading.label"
+    }
+  ],
+  "presets": [{ "name": "Recommended products", "category": "Product" }]
+}
+{% endschema %}

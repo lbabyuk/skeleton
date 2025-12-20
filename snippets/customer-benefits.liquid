@@ -1,0 +1,27 @@
+{% comment %}
+  Renders product images
+
+  Usage:
+  {% render 'product-benefits' %}
+{% endcomment %}
+
+{% assign benefits_list = product.metafields.custom.customer_benefits.value %}
+{%- if benefits_list -%}
+  <div class="customer__benefits w-full flex flex-col gap-3 h-21" {{ shopify_attributes }}>
+    {%- for benefit in benefits_list -%}
+      <p class="flex gap-1.5 subtitle">
+        {%- if benefit.icon -%}
+          <img
+            src="{{benefit.icon | image_url: width: 20}}"
+            width="20"
+            height="20"
+            alt="{{ 'products.product.benefits' | t }}"
+          >
+        {%- endif -%}
+        {%- if benefit.benefit -%}
+          <span>{{ benefit.benefit }}</span>
+        {%- endif -%}
+      </p>
+    {%- endfor -%}
+  </div>
+{%- endif -%}

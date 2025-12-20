@@ -1,0 +1,28 @@
+{%- unless template == 'index' or template == '404' -%}
+  {%- assign t = template | split: '.' | first -%}
+
+  <div id="breadcrumbs" class="shopify-section pt-4 md:pt-6 ">
+    <div class="breadcrumbs-inner w-fit">
+      <nav class="breadcrumbs px-4 md:px-15" role="navigation" aria-label="breadcrumbs">
+        <ol class="breadcrumbs__list flex gap-1">
+          <li class="breadcrumbs__item inline-block">
+            <a class="breadcrumbs__link cursor-pointer subtitle" href="{{ routes.root_url }}">Home</a>
+          </li>
+          {%- case t -%}
+            {%- when 'page' -%}
+              {% render 'breadcrumbs-item', title: page.title, url: page.url %}
+            {%- when 'product' -%}
+              {%- if collection.url -%}
+                {% render 'breadcrumbs-item', title: collection.title, url: collection.url %}
+              {%- endif -%}
+              {% render 'breadcrumbs-item', title: product.title, url: product.url, current: true %}
+            {%- when 'collection' -%}
+              {% render 'breadcrumbs-item', title: collection.title, url: collection.url, current: current_tags == nil %}
+            {%- else -%}
+              {% render 'breadcrumbs-item', title: page_title, url: request.path, current: true %}
+          {%- endcase -%}
+        </ol>
+      </nav>
+    </div>
+  </div>
+{%- endunless -%}

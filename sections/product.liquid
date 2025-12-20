@@ -1,45 +1,178 @@
 {% comment %}
   This section is used in the product template to render product page with
   media, content, and add-to-cart form.
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
 {% endcomment %}
 
-<div class="product-images">
-  {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
-  {% endfor %}
-</div>
+{% assign description_text = product.metafields.custom.description %}
+{% assign size_guide = product.metafields.custom.size_guide %}
 
-<div class="product-info">
-  <h1>{{ product.title }}</h1>
-  <p>{{ product.price | money }}</p>
-  <p>{{ product.description }}</p>
-</div>
+{% assign reviews = product.metafields.custom.reviews.value %}
+{% assign review_count = reviews.size %}
+{% assign total_stars = 0 %}
 
-<div class="product-form">
-  {% form 'product', product %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
+{% for review in reviews %}
+  {% assign total_stars = total_stars | plus: review.stars %}
+{% endfor %}
 
-    <select name="id">
-      {% for variant in product.variants %}
-        <option
-          value="{{ variant.id }}"
-          {% if variant == current_variant %}
-            selected="selected"
-          {% endif %}
-        >
-          {{ variant.title }} - {{ variant.price | money }}
-        </option>
-      {% endfor %}
-    </select>
+{% if review_count > 0 %}
+  {% assign average_stars = total_stars | divided_by: review_count %}
+{% else %}
+  {% assign average_stars = 0 %}
+{% endif %}
 
-    <input type="text" name="quantity" min="1" value="1">
+<section
+  class="product section-{{ section.id }}"
+  id="Product-{{ section.id }}"
+  data-section="{{ section.id }}"
+  data-url="{{ product.url }}"
+>
+  <div class="product__container grid">
+    <div class="grid grid-cols-1 md:grid-cols-2 pt-4 px-4 md:px-16 gap-6 lg:gap-15 justify-center">
+      <div class="product__slider--container w-full md:sticky md:top-15 self-start">
+        {%- if product.has_only_default_variant -%}
+          {%- assign alt_text = product.preview_image.alt | default: product.title -%}
+          {{
+            product.featured_image
+            | image_url: width: 500
+            | image_tag:
+              loading: 'lazy',
+              width: 500,
+              height: 500,
+              alt: alt_text,
+              fetchpriority: 'high',
+              class: 'object-cover'
+          }}
+        {%- else -%}
+          {% render 'product-media-slider',
+            stars: average_stars,
+            selected_variant: product.selected_or_first_available_variant
+          %}
+        {%- endif -%}
+      </div>
 
-    <input type="submit" value="Add to cart">
-    {{ form | payment_button }}
-  {% endform %}
-</div>
+      <div class=" product__info--container w-full flex flex-col gap-6">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'text' -%}
+              <span
+                {{ block.shopify_attributes }}
+                class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+              >
+                {{- block.settings.text -}}
+                {% if product.vendor %}
+                  — {{ product.vendor }}
+                {% endif %}
+              </span>
+          {%- endcase -%}
+        {%- endfor -%}
+        <div class="product__info--heading flex flex-col gap-3">
+          <div class="flex flex-col gap-2">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'title' -%}
+                  {%- if product.title != blank -%}
+                    <h1 class="product_title h2" {{ block.shopify_attributes }}>{{ product.title | escape }}</h1>
+                  {%- else -%}
+                    <h1 class="product_title h2" {{ block.shopify_attributes }}>{{ product.handle | capitalize }}</h1>
+                  {%- endif -%}
+                {%- when 'rating' -%}
+                  <div class="product-average-rating flex items-center gap-2 mt-4" {{ block.shopify_attributes }}>
+                    {% render 'stars', stars: average_stars, label: 'Average rating' %}
+                    <span class="subtitle" aria-hidden="true">{{- average_stars | times: 1.0 | round: 1 -}}</span>
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'description' -%}
+                {%- if product.description != blank -%}
+                  <div class="product__description subtitle" {{ block.shopify_attributes }}>
+                    {{ product.description }}
+                  </div>
+                {%- else -%}
+                  {{ 'products.product.product_description' | t }}
+                {%- endif -%}
+              {%- when 'sku' -%}
+                <p
+                  class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"
+                  id="Sku-{{ section.id }}"
+                  role="status"
+                  {{ block.shopify_attributes }}
+                >
+                  <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span>
+                  {{- product.selected_or_first_available_variant.sku -}}
+                </p>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'price' -%}
+              {% render 'product-price', shopify_attributes: block.shopify_attributes, product: product %}
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'variant_picker' -%}
+              {% render 'product-form', product: product, shopify_attributes: block.shopify_attributes %}
+          {%- endcase -%}
+        {% endfor %}
+
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'customer_benefits' -%}
+              {% render 'customer-benefits', shopify_attributes: block.shopify_attributes %}
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {%- unless description_text.blank -%}
+          <div class="product__description subtitle">
+            <p class="subtitle">{{ description_text | escape }}</p>
+          </div>
+        {%- endunless -%}
+
+        <div class="flex flex-col gap-2">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'collapsible_rows' -%}
+                {% assign metafield = product.metafields.custom[block.settings.metafield] %}
+                {% assign title = block.settings.title %}
+
+                {%- if metafield and metafield.value != blank -%}
+                  {% render 'product-accordion',
+                    metafield: metafield,
+                    title: title,
+                    shopify_attributes: block.shopify_attributes
+                  %}
+                {%- endif -%}
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+    <div class="product__size--guide">
+      {% render 'modal-size-guide', metafield: size_guide %}
+    </div>
+  </div>
+</section>
+
+<div
+  id="product-data"
+  data-section-id="{{ section.id }}"
+  data-variants="{{ product.variants | json | escape }}"
+></div>
+
+<script type="application/json" id="ProductJson-{{ product.id }}">
+  {{ product | json }}
+</script>
+
+<script src="{{ 'option-picker.js' | asset_url }}" defer></script>
+<script src="{{ 'product-media-slider.js' | asset_url }}" defer></script>
+<script src="{{ 'add-to-cart.js' | asset_url }}" defer></script>
+<script src="{{ 'modal-size-guide.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
@@ -47,6 +180,122 @@
   "settings": [],
   "disabled_on": {
     "groups": ["header", "footer"]
-  }
+  },
+  "blocks": [
+    {
+      "type": "text",
+      "name": "t:sections.main-product.blocks.text.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Text",
+          "label": "Text"
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "body"
+            },
+            {
+              "value": "subtitle",
+              "label": "subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Body"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "t:sections.main-product.blocks.title.name",
+      "limit": 1
+    },
+
+    {
+      "type": "price",
+      "name": "t:sections.main-product.blocks.price.name",
+      "limit": 1
+    },
+    {
+      "type": "sku",
+      "name": "t:sections.main-product.blocks.sku.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "body"
+            },
+            {
+              "value": "subtitle",
+              "label": "subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Body"
+        }
+      ]
+    },
+    {
+      "type": "quantity_selector",
+      "name": "Quantity selector",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "t:sections.main-product.blocks.description.name",
+      "limit": 1
+    },
+    {
+      "type": "rating",
+      "name": "t:sections.main-product.blocks.rating.name",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "t:sections.main-product.blocks.variant_picker.name",
+      "limit": 1
+    },
+    {
+      "type": "modal",
+      "name": "Modal",
+      "limit": 1
+    },
+    {
+      "type": "customer_benefits",
+      "name": "t:sections.main-product.blocks.customer_benefits.name",
+      "limit": 1
+    },
+    {
+      "type": "collapsible_rows",
+      "name": "t:sections.main-product.blocks.collapsible_rows.name",
+      "settings": [
+        { "type": "text", "id": "title", "default": "Title", "label": "Text" },
+        {
+          "type": "text",
+          "id": "metafield",
+          "label": "Metafield key",
+          "info": "Example: size_fit, product_notes, return_policy"
+        }
+      ],
+      "limit": 5
+    }
+  ]
 }
 {% endschema %}

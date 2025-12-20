@@ -1,0 +1,53 @@
+{% comment %}
+  Tags snipper
+  usage: {% render 'tags' %}
+{% endcomment %}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{%- assign normalized_tags = '' -%}
+
+{%- for tag in product.tags -%}
+  {%- assign clean_tag = tag | downcase | replace: '-', ' ' | replace: '_', ' ' | strip -%}
+  {%- assign normalized_tags = normalized_tags | append: clean_tag | append: ',' -%}
+{%- endfor -%}
+
+{%- assign is_best_seller = false -%}
+{%- assign is_highly_rated = false -%}
+
+{%- if normalized_tags contains 'best seller' -%}
+  {%- assign is_best_seller = true -%}
+{%- endif -%}
+
+{%- if normalized_tags contains 'highly rated' -%}
+  {%- assign is_highly_rated = true -%}
+{%- endif -%}
+
+{%- assign is_on_sale = false -%}
+{%- assign is_highly_rated = false -%}
+
+{%- if variant.compare_at_price > variant.price -%}
+  {%- assign is_on_sale = true -%}
+
+{%- elsif stars >= 4 and variant.price == variant.compare_at_price -%}
+  {%- assign is_highly_rated = true -%}
+{%- endif -%}
+
+{%- if is_on_sale -%}
+  <div class="absolute inline-flex items-center top-6 left-6 bg-white p-2 rounded-sm">
+    {{ 'star-icon.svg' | inline_asset_content }}
+    <span class="subtitle">{{ 'products.product.on_sale' | t | escape }}</span>
+  </div>
+
+{%- elsif is_best_seller -%}
+  <div class="absolute inline-flex items-center top-6 left-6 bg-white p-2 rounded-sm">
+    {{ 'star-icon.svg' | inline_asset_content }}
+    <span class="subtitle">{{ 'products.product.best_seller' | t | escape }}</span>
+  </div>
+
+{%- elsif is_highly_rated -%}
+  <div class="absolute inline-flex items-center top-6 left-6 bg-white p-2 rounded-sm">
+    {{ 'star-icon.svg' | inline_asset_content }}
+    <span class="subtitle">{{ 'products.product.highly_rated' | t | escape }}</span>
+  </div>
+{%- endif -%}

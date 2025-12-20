@@ -1,0 +1,71 @@
+{% assign reviews = product.metafields.custom.reviews.value %}
+
+<section class="reviews" id="Reviews-{{ section.id }}">
+  <div class="reviews__container flex flex-col py-15 md:py-20 gap-8 md:gap-12 px-4 md:px-15">
+    <h2 class="h2 reviews__title text-center">{{ 'reviews.title' | t }}</h2>
+    <div class="reviews__cards grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+      {%- for review in reviews limit: 3 -%}
+        <div class="reviews__cards--card p-6 rounded-lg flex flex-col gap-6 justify-between">
+          {% render 'stars', stars: review.stars, label: review.stars | append: ' out of 5 stars' %}
+          <p class="reviews__text body">
+            {%- if review.customer_image != blank -%}
+              {{ review.review }}
+            {%- else -%}
+              {{ 'reviews.empty_review' | t }}
+            {%- endif -%}
+          </p>
+          <div class="reviews__reviewer flex gap-3">
+            {%- if review.customer_image != blank -%}
+              <img
+                src="{{review.customer_image | image_url: width: 54}}"
+                width="54"
+                height="54"
+                alt="Customer {{ review.customer_name }} avatar "
+                class="relative inline-block rounded-full object-cover object-center"
+              >
+            {%- else -%}
+              <div
+                class="avatar flex justify-center items-center rounded-full border w-13.5 h-13.5 body font-semibold"
+                aria-hidden="true"
+              >
+                {%- assign name_parts = review.customer_name | split: ' ' -%}
+                <span>
+                  {{ name_parts[0] | slice: 0, 1 | upcase -}}
+                  {%- if name_parts.size > 1 %}{{ name_parts.last | slice: 0, 1 | upcase }}{% endif -%}
+                </span>
+              </div>
+            {%- endif -%}
+            <div class="flex flex-col justify-center gap-1">
+              <strong class="reviews__reviewer--name body font-normal">
+                {%- if review.customer_name != blank -%}
+                  {{ review.customer_name | escape }}
+                {%- else -%}
+                  {{- 'reviews.empty_name' | t -}}
+                {%- endif -%}
+              </strong>
+              <span class="reviews__reviewer--city body">
+                {%- if review.city != blank -%}
+                  {{ review.city | escape }}
+                {%- else -%}
+                  {{ 'reviews.empty_city' | t }}
+                {%- endif -%}
+              </span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Reviews"
+    }
+  ]
+}
+{% endschema %}

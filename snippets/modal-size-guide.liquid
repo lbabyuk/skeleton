@@ -1,0 +1,16 @@
+{% comment %}
+  Modal Size Guide snippet
+  usage: {% render 'modal-size-guide', metafield: size_guide %}
+{% endcomment %}
+
+<div id="sizeGuideModal" role="dialog" aria-modal="true" class="size-guide " tabindex="-1">
+  <div class="modal-inner">
+    <span id="sizeGuideTitle" class="sr-only">{{ 'buttons.size_guide' | t }}</span>
+    <button class="close-modal cursor-pointer" aria-label="Close">
+      {{ 'modal-close-icon.svg' | inline_asset_content }}
+    </button>
+    {%- if metafield and metafield.value -%}
+      <section class="text subtitle md:body">{{ metafield }}</section>
+    {%- endif -%}
+  </div>
+</div>
