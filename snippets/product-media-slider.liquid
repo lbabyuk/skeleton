@@ -5,10 +5,23 @@
   {% render 'product-media-slider' %}
 {% endcomment %}
 
+{% assign media_list = product.metafields.custom.color_media.value %}
+
+{% assign color_option_index = 0 %}
+{% for option in product.options_with_values %}
+  {% assign option_name = option.name | downcase %}
+  {% if option_name contains 'color' %}
+    {% assign color_option_index = forloop.index0 %}
+  {% endif %}
+{% endfor %}
+
+{% assign selected_color = product.selected_or_first_available_variant.options[color_option_index] | downcase | strip %}
+{% assign product_videos = product.media | where: 'media_type', 'video' %}
+
 <div
   class="product_image gap-4 xl:gap-6"
   aria-label="{{ 'products.product.media_gallery_viewer' | t | escape }}"
-  id=" ProductMedia-{{ section.id }}"
+  id="ProductMedia-{{ section.id }}"
 >
   <div
     class="swiper thumbSwiper w-full"
@@ -17,83 +30,117 @@
     aria-label="{{ 'products.product.media_thumbnail_images' | t | escape }}"
   >
     <div class="swiper-wrapper">
-      {%- for media in product.media -%}
+      {% for media in product_videos %}
         <div
-          class="swiper-slide cursor-pointer focus-visible"
-          data-media-id="{{ media.id }}"
-          aria-label="Show image {{ forloop.index }} of {{ product.media.size }}"
+          class="swiper-slide cursor-pointer focus-visible relative"
+          data-media-id="Image-{{ forloop.index }}"
+          aria-label="Thumbnail {{ forloop.index }}"
           role="button"
           tabindex="0"
+          data-color="{{ selected_color }}"
         >
-          {%- if media.media_type == 'video' -%}
+          {% if media.preview_image %}
+            {{
+              media.preview_image
+              | image_url: width: 88
+              | image_tag: loading: 'lazy', class: 'w-full h-full object-cover', height: 88, width: 88
+            }}
+          {% else %}
             {{
               media
-              | video_tag: autoplay: true, loop: true, muted: true, controls: true, class: 'w-full h-full object-cover'
+              | image_url: width: 88
+              | image_tag: loading: 'lazy', class: 'w-full h-full object-cover', height: 88, width: 88
             }}
+          {% endif %}
 
-          {%- elsif media != blank -%}
-            {%- assign alt_text = media.preview_image.alt | default: product.title -%}
-            {{-
-              media
-              | image_url: width: 88, height: 88
-              | image_tag:
-                loading: 'lazy',
-                width: 88,
-                height: 88,
-                alt: alt_text,
-                fetchpriority: 'high',
-                class: 'w-full h-auto object-cover'
-            -}}
-          {%- else -%}
-            {{- 'product-2' | placeholder_svg_tag: 'placeholder-img' -}}
-          {%- endif -%}
+          <span class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span class="flex h-8 w-8 items-center justify-center">
+              {{ 'play-button-icon.svg' | inline_asset_content }}
+            </span>
+          </span>
         </div>
-      {%- endfor -%}
+      {% endfor %}
+
+      {% for color_obj in media_list %}
+        {% assign color_name = color_obj.color | downcase | strip %}
+        {% if color_name == selected_color %}
+          {% for image in color_obj.images.value %}
+            <div
+              class="swiper-slide cursor-pointer focus-visible"
+              data-media-id="Image-{{ forloop.index }}"
+              aria-label="Thumbnail {{ forloop.index }}"
+              role="button"
+              tabindex="0"
+              data-color="{{ selected_color }}"
+            >
+              {{
+                image
+                | image_url: width: 88, height: 88
+                | image_tag: loading: 'lazy', width: 88, height: 88, alt: image.alt, class: 'w-full h-full object-cover'
+              }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
+
   <div
     class="swiper mainSwiper w-full mb-4 sm:mb-4 lg:mb-4"
     role="region"
-    aria-roledescription="{{ 'products.product.media_main_images' | t}}"
+    aria-roledescription="{{ 'products.product.media_main_images' | t }}"
     aria-label="{{ 'products.product.media_main_images' | t | escape }}"
+    data-color="{{ selected_color }}"
   >
     <div class="swiper-wrapper">
-      {%- for media in product.media -%}
+      {% for media in product_videos %}
         <div
-          class="image-container swiper-slide flex relative"
+          class="image-container swiper-slide flex relative w-full h-auto!"
           role="group"
-          aria-label="Image {{ forloop.index }} of {{ product.media.size }}"
-          data-media-id="{{ media.id }}"
-          {%- if media.id == selected_variant.featured_media.id -%}
+          aria-label="Main image {{ forloop.index }}"
+          data-media-id="Image-{{ forloop.index }}"
+          {% if media.id == selected_variant.featured_media.id %}
             data-initial-media="true"
-          {%- endif -%}
+          {% endif %}
         >
-          {%- if media.media_type == 'video' -%}
-            {{
-              media
-              | video_tag: autoplay: true, loop: true, muted: true, controls: true, class: 'w-full h-full object-cover'
-            }}
-          {%- else -%}
-            {% render 'tags', stars: stars %}
-            {%- assign alt_text = media.preview_image.alt | default: product.title -%}
-            {{-
-              media
-              | image_url: width: 536, height: 536
-              | image_tag:
-                loading: 'eager',
-                width: 536,
-                height: 536,
-                alt: alt_text,
-                sizes: '(max-width: 768px) 100vw, 50vw',
-                widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
-                fetchpriority: 'high',
-                class: 'w-full h-full object-cover'
-            -}}
-          {%- else -%}
-            {{- 'product-2' | placeholder_svg_tag: 'placeholder-img' -}}
-          {%- endif -%}
+          {{
+            media
+            | video_tag: autoplay: true, loop: true, muted: true, controls: true, class: 'w-full h-full object-cover'
+          }}
         </div>
-      {%- endfor -%}
+      {% endfor %}
+      {% for color_obj in media_list %}
+        {% assign color_name = color_obj.color | downcase | strip %}
+        {% if color_name == selected_color %}
+          {% for image in color_obj.images.value %}
+            <div
+              class="image-container swiper-slide flex relative"
+              role="group"
+              aria-label="Main image {{ forloop.index }}"
+              data-media-id="Image-{{ forloop.index }}"
+              {% if media.id == selected_variant.featured_media.id %}
+                data-initial-media="true"
+              {% endif %}
+            >
+              {% render 'tags', stars: stars -%}
+              {{-
+                image
+                | image_url: width: 536, height: 536
+                | image_tag:
+                  loading: 'eager',
+                  width: 536,
+                  height: 536,
+                  alt: image.alt,
+                  class: 'w-full h-full object-cover',
+                  sizes: '(max-width: 768px) 100vw, 50vw',
+                  widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+                  fetchpriority: 'high',
+                  class: 'w-full h-full object-cover'
+              }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 </div>
