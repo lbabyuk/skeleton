@@ -12,6 +12,10 @@
     "main": {
       "type": "product",
       "blocks": {
+        "modal_LVR9MF": {
+          "type": "modal",
+          "settings": {}
+        },
         "title_eapfBp": {
           "type": "title",
           "settings": {}
@@ -59,6 +63,7 @@
         }
       },
       "block_order": [
+        "modal_LVR9MF",
         "title_eapfBp",
         "rating_mceLCd",
         "description_HiyUPx",
