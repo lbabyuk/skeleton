@@ -128,11 +128,16 @@
           {%- endcase -%}
         {%- endfor -%}
 
-        {%- unless description_text.blank -%}
-          <div class="product__description subtitle">
-            <p class="subtitle">{{ description_text | escape }}</p>
-          </div>
-        {%- endunless -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'description' -%}
+              {%- unless description_text.blank -%}
+                <div class="product__description subtitle" {{ block.shopify_attributes }}>
+                  <p class="subtitle">{{ description_text | escape }}</p>
+                </div>
+              {%- endunless -%}
+          {%- endcase -%}
+        {%- endfor -%}
 
         <div class="flex flex-col gap-2">
           {%- for block in section.blocks -%}
@@ -253,8 +258,8 @@
       ]
     },
     {
-      "type": "quantity_selector",
-      "name": "Quantity selector",
+      "type": "quantity_input",
+      "name": "t:sections.main-product.blocks.quantity_input.name",
       "limit": 1
     },
     {
@@ -274,7 +279,7 @@
     },
     {
       "type": "modal",
-      "name": "Modal",
+      "name": "t:sections.main-product.blocks.modal.name",
       "limit": 1
     },
     {

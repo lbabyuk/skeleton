@@ -16,8 +16,8 @@
 
       {%- for block in section.blocks -%}
         {%- case block.type -%}
-          {%- when 'quantity_selector' -%}
-            <div class="product_quantity flex flex-col gap-2 pb-4" {{ shopify_attributes }}>
+          {%- when 'quantity_input' -%}
+            <div class="product_quantity flex flex-col gap-2 pb-4" {{ block.shopify_attributes }}>
               {% render 'product-quantity' %}
             </div>
         {%- endcase -%}

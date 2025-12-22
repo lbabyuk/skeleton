@@ -258,7 +258,7 @@
         }
       }
     },
-     "main-product": {
+    "main-product": {
       "blocks": {
         "text": {
           "name": "Text",
@@ -317,6 +317,9 @@
         },
         "quantity_input": {
           "name": "Quantity input"
+        },
+        "modal": {
+          "name": "Modal"
         }
       }
     }

@@ -17,14 +17,19 @@
         -%}
           <div class="product__options-name subtitle flex justify-between items-center w-full">
             <span class="">{{ 'products.product.select_size' | t | escape }}</span>
-            <button
-              {{ shopify_attributes }}
-              type="button"
-              class="open-size-guide subtitle underline cursor-pointer shrink-0"
-              aria-controls="sizeGuideModal"
-            >
-              {{- 'buttons.size_guide' | t -}}
-            </button>
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'modal' -%}
+                  <button
+                    {{ block.shopify_attributes }}
+                    type="button"
+                    class="open-size-guide subtitle underline cursor-pointer shrink-0"
+                    aria-controls="sizeGuideModal"
+                  >
+                    {{- 'buttons.size_guide' | t -}}
+                  </button>
+              {%- endcase -%}
+            {%- endfor -%}
           </div>
         {%- endif -%}
       </div>
