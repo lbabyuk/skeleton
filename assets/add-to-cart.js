@@ -1,49 +1,157 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async () => {
+  attachQuantityButtons();
+  attachAddToCart();
+  initializeCartBubble();
+});
 
-  const messageBox = document.querySelector(".form-message");
-  const variantInput = document.querySelector("#selected-variant-id");
-  const productDataEl = document.querySelector("#product-data");
-  const productForm = document.querySelector('[data-type="add-to-cart-form"]');
+async function initializeCartBubble() {
+  try {
+    const response = await fetch(`${window.Shopify.routes.root}cart.js`);
+    const cart = await response.json();
 
-  function showMessage(text, type = "error") {
-    if (!messageBox) return;
-    messageBox.textContent = text;
-    messageBox.classList.remove("text-red-500", "text-green-500", "opacity-0", "invisible", "pointer-events-none");
-    messageBox.classList.add(type === "error" ? "text-red-500" : "text-green-500");
-    messageBox.classList.add("opacity-100");
-    messageBox.classList.remove("invisible", "pointer-events-none");
+    document.querySelectorAll(".cart-count-bubble").forEach((bubble) => {
+      const sup = bubble.querySelector("sup");
+      const srOnly = bubble.querySelector(".sr-only");
+
+      if (sup) sup.textContent = cart.item_count;
+      if (srOnly) srOnly.textContent = `${cart.item_count} items`;
+    });
+  } catch (error) {
+    console.error("Cart init error:", error);
   }
+}
+
+function attachAddToCart() {
+  const productForm = document.querySelector('[data-type="add-to-cart-form"]');
+  if (!productForm) return;
 
   productForm.addEventListener("submit", async (e) => {
-    e.preventPropagation();
-    const variantId = variantInput.value;
-    const sectionId = productDataEl.dataset.sectionId;
-    const quantityInput = document.querySelector(`#Quantity-${sectionId}`);
-    const quantity = +quantityInput.value;
+    e.preventDefault();
+
+    const messageBox = productForm.querySelector(".form-message");
+    const variantInput = productForm.querySelector("#selected-variant-id");
+    const quantityInput = productForm.querySelector('input[name="quantity"]');
+    const addToCartBtn = document.querySelector(".add-to-cart-button");
+
+    const variantId = variantInput?.value;
+
+    const quantity = quantityInput ? Number(quantityInput.value) : 1;
+
+    if (!variantId) return;
+
+    const originalText = addToCartBtn.dataset.addToBagText || addToCartBtn.textContent;
+
+    addToCartBtn.disabled = true;
+    addToCartBtn.textContent = "Adding...";
 
     try {
-      const addResponse = await fetch(window.Shopify.routes.root + "cart/add.js", {
+      const response = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
         method: "POST",
-        body: JSON.stringify({ items: [{ id: variantId, quantity: quantity }] }),
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: [{ id: variantId, quantity }]
+        })
       });
 
-      const data = await addResponse.json();
+      const data = await response.json();
 
-      if (data.status && data.status >= 400) {
-        const message = data.description || data.message || "Unable to add to cart.";
-        showMessage(message, "error");
+      if (!response.ok) {
+        showMessage(messageBox, data.message, "error");
+        addToCartBtn.disabled = false;
+        addToCartBtn.textContent = originalText;
+
+        setTimeout(resetMessages, 3000);
+        unlockPage();
         return;
       }
-      showMessage("Added to cart successfully!", "success");
 
-      const cartCountBubble = document.querySelector(".cart-count-bubble sup:first-child");
-      if (cartCountBubble) cartCountBubble.textContent = cart.item_count;
+      showMessage(messageBox, "Added to cart successfully!", "success");
+      setTimeout(() => {
+        resetMessages();
+      }, 3000);
+
+      await initializeCartBubble();
+      await refreshHeaderCartBubble();
+
+      document.dispatchEvent(new CustomEvent("cart:change", { bubbles: true }));
+      document.dispatchEvent(new CustomEvent("cart:refresh"));
+
+      addToCartBtn.disabled = false;
+      addToCartBtn.textContent = originalText;
+
+      unlockPage();
     } catch (err) {
       console.error(err);
-      showMessage("Network error. Please try again.", "error");
-    } finally {
-      showMessage("Added to cart successfully!", "success");
+      showMessage(messageBox, "Network error", "error");
+      setTimeout(() => {
+        resetMessages();
+      }, 3000);
+      addToCartBtn.disabled = false;
+      addToCartBtn.textContent = originalText;
+      unlockPage();
     }
   });
-});
+}
+
+function showMessage(el, text, type) {
+  if (!el) return;
+  el.textContent = text;
+  el.classList.remove("text-red-500", "text-green-500", "opacity-0");
+  el.classList.add(type === "error" ? "text-red-500" : "text-green-500", "opacity-100");
+}
+
+function resetMessages() {
+  document.querySelectorAll(".form-message").forEach((message) => {
+    message.textContent = "";
+    message.classList.remove("text-red-500", "text-green-500", "opacity-100");
+    message.classList.add("opacity-0");
+  });
+}
+
+function unlockPage() {
+  document.body.classList.remove("overflow-hidden", "lock-scroll");
+  document.body.style.overflow = "";
+}
+
+function attachQuantityButtons() {
+  document.querySelectorAll(".product_quantity--input").forEach((input) => {
+    const container = input.closest("[data-url]");
+    const minusBtn = container.querySelector('button[name="minus"]');
+    const plusBtn = container.querySelector('button[name="plus"]');
+
+    minusBtn.addEventListener("click", () => {
+      let value = parseInt(input.value);
+      const min = parseInt(input.min) || 1;
+      if (value > min) input.value = value - 1;
+    });
+
+    plusBtn.addEventListener("click", () => {
+      let value = parseInt(input.value);
+      const max = parseInt(input.max) || Infinity;
+      if (value < max) input.value = value + 1;
+    });
+  });
+}
+
+async function refreshHeaderCartBubble() {
+  const sectionId = document.querySelector(".cart-count-bubble")?.closest("[data-section-id]")?.dataset.sectionId;
+
+  if (!sectionId) return;
+
+  const url = `${window.location.pathname}?section_id=${sectionId}`;
+
+  const response = await fetch(url);
+  const html = await response.text();
+
+  const newDom = document.createElement("div");
+  newDom.innerHTML = html;
+
+  const newSection = newDom.querySelector(`[data-section-id="${sectionId}"]`);
+  const currentSection = document.querySelector(`[data-section-id="${sectionId}"]`);
+  if (newSection && currentSection) {
+    currentSection.replaceWith(newSection);
+  }
+}
+
+window.attachAddToCart = attachAddToCart;
+window.attachQuantityButtons = attachQuantityButtons;

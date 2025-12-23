@@ -1,16 +1,44 @@
 {% comment %}
-  Product quantity snipper
+  Product quantity snippet
   usage: {% render 'product-quantity' %}
 {% endcomment %}
 
 <label for="Quantity-{{ section.id }}" class="subtitle">{{ 'cart.quantity' | t }}</label>
-<div class="product_quantity__count">
+<div class="relative w-36" data-url="{{ product.url }}" data-section="{{ section.id }}">
+  <span class="sr-only">
+    {{- 'products.product.quantity_decrease' | t: product: product.title | escape -}}
+  </span>
+  <button
+    type="button"
+    name="minus"
+    class="quantity__button cursor-pointer absolute left-0 top-0 h-full px-2 flex items-center justify-center"
+  >
+    {{ 'minus-icon.svg' | inline_asset_content }}
+  </button>
+
   <input
     type="number"
     name="quantity"
     id="Quantity-{{ section.id }}"
-    value="{{ initial_quantity }}"
-    min="1"
-    class="product_quantity--input w-20 px-3 py-2 subtitle focus:outline-none focus:ring-1"
+    value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+    min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+    max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+    class="
+      product_quantity--input w-full px-8 py-2 subtitle text-center
+      appearance-none
+      [&::-webkit-inner-spin-button]:appearance-none
+      [&::-webkit-outer-spin-button]:appearance-none
+      [&::-moz-number-spin-button]:appearance-none
+    "
   >
+  <button
+    type="button"
+    name="plus"
+    class="quantity__button cursor-pointer absolute right-0 top-0 h-full px-2 flex items-center justify-center"
+  >
+    <span class="sr-only">
+      {{- 'products.product.quantity_increase' | t: product: product.title | escape -}}
+    </span>
+    {{ 'plus-icon.svg' | inline_asset_content }}
+  </button>
 </div>

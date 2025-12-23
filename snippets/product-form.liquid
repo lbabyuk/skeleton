@@ -34,11 +34,7 @@
       <button
         type="submit"
         name="add"
-        class="
-          add-to-cart-button button--secondary cursor-pointer w-full
-          disabled:cursor-not-allowed transition-colors duration-300
-          focus-visible
-        "
+        class="add-to-cart-button button--secondary cursor-pointer w-full disabled:cursor-not-allowed focus-visible"
         data-add-to-bag-text="{{ 'products.product.add_to_bag' | t | escape }}"
         data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
         {% unless product.selected_or_first_available_variant.available %}

@@ -1,4 +1,4 @@
-<header class="full-width header">
+<header class="full-width header" id="Header-{{ section.id }}" data-section-id="{{ section.id }}">
   <div class="header__container flex justify-between items-center h-14 w-full md:h-21 md:py-7.5 py-4 px-4 md:px-15">
     <div class="header__logo hidden md:block">
       <a href="{{ routes.root_url }}" aria-label="Go to home page" class="logo">
@@ -30,23 +30,22 @@
         class="relative transition-colors duration-300 group overflow-visible!"
         aria-label="View cart with {{ cart.item_count }} items"
       >
-        {%- if cart.item_count > 0 -%}
-          <div class="cart-count-bubble">
-            <span class="sr-only">{{ cart.item_count }} items</span>
-            <sup
-              role="status"
-              aria-live="polite"
-              aria-atomic="true"
-              class="
-                absolute w-5 h-5
-                flex items-center justify-center top-0 left-4
-                 -translate-x-1/4 -translate-y-1/4 rounded-full border border-black bg-black text-white group-hover:border-0 group-hover:bg-indigo-500  group-hover:text-white
-              "
-            >
-              {{- cart.item_count -}}
-            </sup>
-          </div>
-        {%- endif -%}
+        <div class="cart-count-bubble" data-section-id="{{ section.id }}">
+          <span class="sr-only">{{ cart.item_count }} items</span>
+          <sup
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            class="
+              {% if cart.item_count == 0 %}hidden{% endif %}
+              absolute w-5 h-5
+              flex items-center justify-center top-0 left-4
+               -translate-x-1/4 -translate-y-1/4 rounded-full border border-black bg-black text-white group-hover:border-0 group-hover:bg-indigo-500  group-hover:text-white
+            "
+          >
+            {{- cart.item_count -}}
+          </sup>
+        </div>
 
         <span class="transition-colors duration-300 group-hover:text-indigo-500" aria-hidden="true">
           {{ 'icon-cart.svg' | inline_asset_content }}

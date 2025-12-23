@@ -104,7 +104,9 @@
       "in_stock": "In Stock",
       "out_of_stock": "Out Of Stock",
       "running_out": "Running Out",
-      "benefits": "Customer benefits"
+      "benefits": "Customer benefits",
+      "quantity_decrease": "quantity decrease",
+      "quantity_increase": "quantity increase"
     }
   },
   "slider": {
