@@ -12,6 +12,10 @@
     "main": {
       "type": "product",
       "blocks": {
+        "quantity_input_i7CgM9": {
+          "type": "quantity_input",
+          "settings": {}
+        },
         "modal_LVR9MF": {
           "type": "modal",
           "settings": {}
@@ -63,6 +67,7 @@
         }
       },
       "block_order": [
+        "quantity_input_i7CgM9",
         "modal_LVR9MF",
         "title_eapfBp",
         "rating_mceLCd",
