@@ -65,7 +65,7 @@ function attachAddToCart() {
         return;
       }
 
-      showMessage(messageBox, "Added to cart successfully!", "success");
+      showMessage(messageBox, messageBox.dataset.successMessage, "success");
       setTimeout(() => {
         resetMessages();
       }, 3000);

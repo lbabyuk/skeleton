@@ -106,7 +106,8 @@
       "running_out": "Running Out",
       "benefits": "Customer benefits",
       "quantity_decrease": "quantity decrease",
-      "quantity_increase": "quantity increase"
+      "quantity_increase": "quantity increase",
+      "success_message": "Added to cart successfully!"
     }
   },
   "slider": {

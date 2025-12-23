@@ -60,6 +60,7 @@
         class="form-message min-h-5 transition-opacity duration-300 pointer-events-none subtitle {% unless product.selected_or_first_available_variant.available %}text-red-500{% endunless %}"
         role="status"
         aria-live="polite"
+        data-success-message="{{  'products.product.success_message' | t | escape }}"
       >
         {% unless product.selected_or_first_available_variant.available -%}
           {{- 'products.product.currently_unavailable' | t -}}
