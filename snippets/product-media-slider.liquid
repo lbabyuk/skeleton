@@ -97,15 +97,24 @@
         <div
           class="image-container swiper-slide flex relative w-full h-auto!"
           role="group"
-          aria-label="Main image {{ forloop.index }}"
-          data-media-id="Image-{{ forloop.index }}"
+          aria-label="Slide {{ forloop.index }} of {{ forloop.length }}"
+          data-media-id="Video-{{ media.id }}"
           {% if media.id == selected_variant.featured_media.id %}
             data-initial-media="true"
+            aria-current="true"
           {% endif %}
         >
           {{
             media
-            | video_tag: autoplay: true, loop: true, muted: true, controls: true, class: 'w-full h-full object-cover'
+            | video_tag:
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: true,
+              class: 'w-full h-full object-cover',
+              aria-hidden: true,
+              aria-label: media.alt
+            | default: product.title
           }}
         </div>
       {% endfor %}
