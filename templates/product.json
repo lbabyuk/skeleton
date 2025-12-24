@@ -126,7 +126,7 @@
       ],
       "name": "t:sections.image_banner.presets.name",
       "settings": {
-        "image": "shopify://shop_images/cta.png"
+        "image": "shopify://shop_images/cta-hero.webp"
       }
     }
   },
