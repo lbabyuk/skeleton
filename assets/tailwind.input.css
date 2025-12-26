@@ -67,6 +67,11 @@
     text-transform: uppercase;
   }
 
+  .sticky__add-to-cart {
+    @apply border-t;
+    border-color: var(--color-light-gray);
+  }
+
   header {
     @apply border-b;
     border-color: var(--color-light-gray);
@@ -74,14 +79,16 @@
 
   .header,
   .footer,
-  .reviews {
+  .reviews,
+  .sticky__add-to-cart {
     display: grid;
     grid-template-columns: var(--content-grid);
   }
 
   .header__container,
   .footer__container,
-  .reviews__container {
+  .reviews__container,
+  .sticky__wrapper {
     grid-column: 2;
   }
 
@@ -213,8 +220,13 @@
 
   .reviews__cards--card,
   .size__option,
-  .product_quantity--input {
+  .product_quantity--input,
+  .product_size-option {
     border: 1px solid var(--color-light-gray);
+  }
+
+  .product_size-option {
+    background-color: var(--color-white);
   }
 
   .reviews__reviewer--city,
@@ -242,7 +254,8 @@
   }
 
   .color__option,
-  .size__option {
+  .size__option,
+  .product_size-option {
     border-radius: var(--border-radius);
     -webkit-border-radius: var(--border-radius);
     -moz-border-radius: var(--border-radius);
@@ -347,6 +360,10 @@
     @apply overflow-hidden whitespace-nowrap;
   }
 
+  .is-visible {
+    @apply opacity-100 translate-y-0 pointer-events-auto;
+  }
+
   @-webkit-keyframes animatetop {
     from {
       top: -300px;
@@ -389,7 +406,6 @@
     }
     .size-guide td:first-child {
       width: 140px;
-     
     }
   }
 

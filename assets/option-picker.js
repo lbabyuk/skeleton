@@ -34,8 +34,13 @@ class OptionPicker extends HTMLElement {
         const newDiv = document.createElement("div");
         newDiv.innerHTML = html;
         document.querySelector(".product__container").innerHTML = newDiv.querySelector(".product__container").innerHTML;
-        window.attachQuantityButtons();
-        window.attachAddToCart();
+
+        if (window.attachQuantityButtons) window.attachQuantityButtons();
+        if (window.attachAddToCart) window.attachAddToCart();
+
+        if (window.initStickyATCVisibility) window.initStickyATCVisibility();
+        if (window.attachStickySubmit) window.attachStickySubmit();
+        if (window.sizeOptionPopover) window.sizeOptionPopover();
 
         if (window.initializeSlider) window.initializeSlider();
         if (window.selectVariantThumbnail) window.selectVariantThumbnail(selectCurrentOption.value);

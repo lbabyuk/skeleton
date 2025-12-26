@@ -16,7 +16,11 @@
       class="compare_at_price body line-through"
       aria-label="{{ 'products.product.regular_price' | t }}"
     >
-      {{- product_price.compare_at_price | money_with_currency -}}
+      {% if layout == 'sticky-price' %}
+        {{- product_price.compare_at_price | money -}}
+      {% else %}
+        {{- product_price.compare_at_price | money_with_currency -}}
+      {% endif %}
       <span class="sr-only">{{ 'products.product.regular_price' | t | escape }}</span>
     </span>
     <span
@@ -27,7 +31,11 @@
   {%- endif -%}
   {% if product.price != blank %}
     <span class="currant_price body" aria-label="Current price">
-      {{- product_price.price | money_with_currency | escape -}}
+      {% if layout == 'sticky-price' %}
+        {{- product_price.price | money | escape -}}
+      {% else %}
+        {{- product_price.price | money_with_currency | escape -}}
+      {% endif %}
     </span>
     <span class="sr-only">
       {{- 'products.product.currant_price' | t | escape -}}

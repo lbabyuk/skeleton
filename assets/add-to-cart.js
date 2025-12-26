@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   attachQuantityButtons();
   attachAddToCart();
+  attachStickySubmit();
   initializeCartBubble();
 });
 
@@ -21,6 +22,17 @@ async function initializeCartBubble() {
   }
 }
 
+function attachStickySubmit() {
+  const stickyBtn = document.querySelector("[data-sticky-submit]");
+  const productForm = document.querySelector('[data-type="add-to-cart-form"]');
+
+  if (!stickyBtn || !productForm) return;
+
+  stickyBtn.addEventListener("click", () => {
+    productForm.requestSubmit();
+  });
+}
+
 function attachAddToCart() {
   const productForm = document.querySelector('[data-type="add-to-cart-form"]');
   if (!productForm) return;
@@ -31,7 +43,7 @@ function attachAddToCart() {
     const messageBox = productForm.querySelector(".form-message");
     const variantInput = productForm.querySelector("#selected-variant-id");
     const quantityInput = productForm.querySelector('input[name="quantity"]');
-    const addToCartBtn = document.querySelector(".add-to-cart-button");
+    const buttons = document.querySelectorAll(".add-to-cart-button, [data-sticky-submit]");
 
     const variantId = variantInput?.value;
 
@@ -39,10 +51,7 @@ function attachAddToCart() {
 
     if (!variantId) return;
 
-    const originalText = addToCartBtn.dataset.addToBagText || addToCartBtn.textContent;
-
-    addToCartBtn.disabled = true;
-    addToCartBtn.textContent = "Adding...";
+    setButtonsStatus(buttons);
 
     try {
       const response = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
@@ -57,8 +66,7 @@ function attachAddToCart() {
 
       if (!response.ok) {
         showMessage(messageBox, data.message, "error");
-        addToCartBtn.disabled = false;
-        addToCartBtn.textContent = originalText;
+        resetButtonsStatus(buttons);
 
         setTimeout(resetMessages, 3000);
         unlockPage();
@@ -75,9 +83,7 @@ function attachAddToCart() {
 
       document.dispatchEvent(new CustomEvent("cart:change", { bubbles: true }));
       document.dispatchEvent(new CustomEvent("cart:refresh"));
-
-      addToCartBtn.disabled = false;
-      addToCartBtn.textContent = originalText;
+      resetButtonsStatus(buttons);
 
       unlockPage();
     } catch (err) {
@@ -86,8 +92,7 @@ function attachAddToCart() {
       setTimeout(() => {
         resetMessages();
       }, 3000);
-      addToCartBtn.disabled = false;
-      addToCartBtn.textContent = originalText;
+      resetButtonsStatus(buttons);
       unlockPage();
     }
   });
@@ -105,6 +110,24 @@ function resetMessages() {
     message.textContent = "";
     message.classList.remove("text-red-500", "text-green-500", "opacity-100");
     message.classList.add("opacity-0");
+  });
+}
+
+function setButtonsStatus(buttons, loadingText = "Adding...") {
+  buttons.forEach((btn) => {
+    if (!btn.dataset.originalText) {
+      btn.dataset.originalText = btn.dataset.addToBagText || btn.textContent;
+    }
+
+    btn.disabled = true;
+    btn.textContent = loadingText;
+  });
+}
+
+function resetButtonsStatus(buttons) {
+  buttons.forEach((btn) => {
+    btn.disabled = false;
+    btn.textContent = btn.dataset.originalText;
   });
 }
 
@@ -155,3 +178,4 @@ async function refreshHeaderCartBubble() {
 
 window.attachAddToCart = attachAddToCart;
 window.attachQuantityButtons = attachQuantityButtons;
+window.attachStickySubmit = attachStickySubmit;

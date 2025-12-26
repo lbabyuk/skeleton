@@ -161,6 +161,7 @@
     <div class="product__size--guide">
       {% render 'modal-size-guide', metafield: size_guide %}
     </div>
+    {% render 'sticky-add-to-cart', product: product %}
   </div>
 </section>
 
@@ -178,6 +179,9 @@
 <script src="{{ 'product-media-slider.js' | asset_url }}" defer></script>
 <script src="{{ 'add-to-cart.js' | asset_url }}" defer></script>
 <script src="{{ 'modal-size-guide.js' | asset_url }}" defer></script>
+<script src="{{ 'sticky-options-popover.js' | asset_url }}" defer></script>
+<script src="{{ 'sticky-add-to-cart.js' | asset_url }}" defer></script>
+
 
 {% schema %}
 {
