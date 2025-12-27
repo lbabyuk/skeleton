@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   attachQuantityButtons();
-  attachAddToCart();
   attachStickySubmit();
+  attachAddToCart();
   initializeCartBubble();
 });
 
@@ -29,7 +29,7 @@ function attachStickySubmit() {
   if (!stickyBtn || !productForm) return;
 
   stickyBtn.addEventListener("click", () => {
-    productForm.requestSubmit();
+  productForm.requestSubmit();
   });
 }
 
@@ -43,15 +43,25 @@ function attachAddToCart() {
     const messageBox = productForm.querySelector(".form-message");
     const variantInput = productForm.querySelector("#selected-variant-id");
     const quantityInput = productForm.querySelector('input[name="quantity"]');
-    const buttons = document.querySelectorAll(".add-to-cart-button, [data-sticky-submit]");
-
+    const stickyBtn = document.querySelector("[data-sticky-submit]");
+    const addToCartBtn = document.querySelector(".add-to-cart-button");
+    const originalATCText = addToCartBtn.dataset.addToBagText || addToCartBtn.textContent;
+    const originalStickyATCText = stickyBtn.dataset.addToBagText || stickyBtn.textContent;
     const variantId = variantInput?.value;
 
     const quantity = quantityInput ? Number(quantityInput.value) : 1;
 
     if (!variantId) return;
 
-    setButtonsStatus(buttons);
+    if (addToCartBtn) {
+      addToCartBtn.disabled = true;
+      addToCartBtn.textContent = "Adding...";
+    }
+
+    if (stickyBtn) {
+      stickyBtn.disabled = true;
+      stickyBtn.textContent = "Adding...";
+    }
 
     try {
       const response = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
@@ -66,7 +76,11 @@ function attachAddToCart() {
 
       if (!response.ok) {
         showMessage(messageBox, data.message, "error");
-        resetButtonsStatus(buttons);
+        addToCartBtn.disabled = false;
+        addToCartBtn.textContent = originalATCText;
+
+        stickyBtn.disabled = false;
+        stickyBtn.textContent = originalStickyATCText;
 
         setTimeout(resetMessages, 3000);
         unlockPage();
@@ -83,7 +97,11 @@ function attachAddToCart() {
 
       document.dispatchEvent(new CustomEvent("cart:change", { bubbles: true }));
       document.dispatchEvent(new CustomEvent("cart:refresh"));
-      resetButtonsStatus(buttons);
+      addToCartBtn.disabled = false;
+      addToCartBtn.textContent = originalATCText;
+
+      stickyBtn.disabled = false;
+      stickyBtn.textContent = originalStickyATCText;
 
       unlockPage();
     } catch (err) {
@@ -92,7 +110,11 @@ function attachAddToCart() {
       setTimeout(() => {
         resetMessages();
       }, 3000);
-      resetButtonsStatus(buttons);
+      addToCartBtn.disabled = false;
+      addToCartBtn.textContent = originalATCText;
+
+      stickyBtn.disabled = false;
+      stickyBtn.textContent = originalStickyATCText;
       unlockPage();
     }
   });
@@ -110,24 +132,6 @@ function resetMessages() {
     message.textContent = "";
     message.classList.remove("text-red-500", "text-green-500", "opacity-100");
     message.classList.add("opacity-0");
-  });
-}
-
-function setButtonsStatus(buttons, loadingText = "Adding...") {
-  buttons.forEach((btn) => {
-    if (!btn.dataset.originalText) {
-      btn.dataset.originalText = btn.dataset.addToBagText || btn.textContent;
-    }
-
-    btn.disabled = true;
-    btn.textContent = loadingText;
-  });
-}
-
-function resetButtonsStatus(buttons) {
-  buttons.forEach((btn) => {
-    btn.disabled = false;
-    btn.textContent = btn.dataset.originalText;
   });
 }
 

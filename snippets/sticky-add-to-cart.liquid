@@ -48,144 +48,57 @@
     </div>
 
     <div class="right__side product-form flex gap-8 justify-center items-center">
-      <div class="product__options subtitle product__color-option lg:flex gap-1.5 hidden items-center">
-        {%- for option in product.options_with_values -%}
-          {%- assign option_name_normalized = option.name | downcase | strip -%}
-          {% if option_name_normalized contains 'color'
-            or option_name_normalized contains 'colour'
-            or option_name_normalized contains 'колір'
-          -%}
-            <span class="value__title">{{ 'Color' | escape }}: </span>
+      <div class="hidden sm:flex sm:gap-3 lg:gap-8 sm:flex-col lg:flex-row">
+        <div class="product__options subtitle product__color-option flex gap-1.5  items-center">
+          {%- for option in product.options_with_values -%}
+            {%- assign option_name_normalized = option.name | downcase | strip -%}
+            {% if option_name_normalized contains 'color'
+              or option_name_normalized contains 'colour'
+              or option_name_normalized contains 'колір'
+            -%}
+              <span class="value__title">{{ 'Color' | escape }}: </span>
+              {% render 'color-option', option: option, layout: 'sticky' %}
+            {%- endif %}
+          {% endfor %}
+        </div>
 
-            {%- for value in option.values -%}
-              {%- assign variant = value.variant -%}
-              {%- assign image_url = variant.featured_image | image_url: width: 24 -%}
-              <div class="product__option-value  color-option">
-                <label
-                  for="{{ option.name | handleize }}-{{ forloop.index }}"
-                  class="cursor-pointer"
-                  title="{{ value.name }}"
+        <div class="product__options subtitle size-option flex items-center">
+          {% for option in product.options_with_values %}
+            {% assign option_name_normalized = option.name | downcase | strip %}
+            {% if option_name_normalized contains 'size'
+              or option_name_normalized contains 'shoe size'
+              or option_name_normalized contains 'розмір'
+            %}
+              <div class="relative">
+                <button
+                  type="button"
+                  class="product_option-value cursor-pointer flex items-center gap-1.5"
+                  data-size-trigger
                 >
-                  <input
-                    type="radio"
-                    value="{{ variant.id }}"
-                    id="{{ option.name | handleize }}-{{ forloop.index }}"
-                    name="{{ option.name }}"
-                    class="sr-only peer color-input"
-                    data-media-id="{{ variant.featured_media.id }}"
-                    {% if option.selected_value == value %}
-                      checked
-                    {% endif %}
-                  >
-                  {% if image_url != blank %}
-                    <span
-                      class="color__option rounded-sm block w-6 h-6 peer-checked:ring peer-checked:ring-black bg-center bg-cover focus-visible"
-                      style="background-image:url({{ image_url }});"
-                      tabindex="0"
-                    ></span>
-                  {% else %}
-                    <span
-                      class="block w-6 h-6 rounded-full ring-1 peer-checked:ring peer-checked:ring-offset-1 peer-checked:ring-black focus-visible"
-                      style="background-color:{{ value.name | downcase }};"
-                      tabindex="0"
-                    ></span>
-                    <span class="sr-only">{{ value.name }}</span>
-                  {% endif %}
-                </label>
-              </div>
-            {%- endfor -%}
-          {%- endif %}
-        {% endfor %}
-      </div>
+                  <span class="value__title">{{ 'Size' | escape }}:</span>
+                  <span data-size-label>
+                    {{ option.selected_value | default: 'Select size' }}
+                  </span>
+                  {{ 'details-icon.svg' | inline_asset_content }}
+                </button>
 
-      <div class="product__options subtitle size-option hidden lg:flex items-center">
-        {% for option in product.options_with_values %}
-          {% assign option_name_normalized = option.name | downcase | strip %}
-          {% if option_name_normalized contains 'size'
-            or option_name_normalized contains 'shoe size'
-            or option_name_normalized contains 'розмір'
-          %}
-            <div class="relative">
-              <button
-                type="button"
-                class="product_option-value cursor-pointer flex items-center gap-1.5"
-                data-size-trigger
-              >
-                <span class="value__title">{{ 'Size' | escape }}:</span>
-                <span data-size-label>
-                  {{ option.selected_value | default: 'Select size' }}
-                </span>
-                {{ 'details-icon.svg' | inline_asset_content }}
-              </button>
-
-              <div
-                class="fixed z-50 hidden"
-                data-size-popover
-                style="top:0; left:0;"
-              >
-                <div class="product_size-option p-4 w-50 text-center flex flex-col gap-2.5">
-                  {% for value in option.values %}
-                    {% assign variant = value.variant %}
-                    <label
-                      for="size-{{ forloop.index }}"
-                      tabindex="0"
-                      class="
-                        cursor-pointer
-                        block subtitle focus-visible hover:underline
-                        {% unless variant.available %}
-                          line-through opacity-50 hover:no-underline
-                        {% endunless %}
-                      "
-                      data-size-option
-                    >
-                      {{ value.name }}
-                    </label>
-
-                    <input
-                      type="radio"
-                      value="{{ variant.id }}"
-                      id="size-{{ forloop.index }}"
-                      name="id"
-                      class="sr-only"
-                      {% if option.selected_value == value %}
-                        checked
-                      {% endif %}
-                    >
-                  {% endfor %}
+                <div
+                  class="fixed z-50 hidden"
+                  data-size-popover
+                  style="top:0; left:0;"
+                >
+                  <div class="product_size-option p-4 w-50 text-center flex flex-col gap-2.5">
+                    {% render 'size-option', option: option, layout: 'sticky' %}
+                  </div>
                 </div>
               </div>
-            </div>
-          {% endif %}
-        {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
 
       <div class="sticky__add-to-cart-btn">
-        <button
-          type="button"
-          class="sticky__add-to-cart-btn button--secondary cursor-pointer w-full disabled:cursor-not-allowed focus-visible"
-          data-sticky-submit
-          class="button--secondary sticky-button cursor-pointer w-full disabled:cursor-not-allowed focus-visible"
-          data-add-to-bag-text="{{ 'products.product.add_to_bag' | t | escape }}"
-          data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
-          {% unless product.selected_or_first_available_variant.available %}
-            disabled
-          {% endunless %}
-        >
-          <span aria-live="polite" aria-hidden="true">
-            {%- if product.selected_or_first_available_variant.available -%}
-              {{ 'products.product.add_to_bag' | t | escape }}
-            {%- else -%}
-              {{ 'products.product.sold_out' | t | escape }}
-            {%- endif -%}
-          </span>
-          <span class="sr-only">
-            {%- if product.selected_or_first_available_variant.available -%}
-              {{- 'products.product.add_to_bag' | t | escape -}}
-            {%- else -%}
-              {{- 'products.product.sold_out' | t | escape -}}
-            {%- endif -%}
-          </span>
-        </button>
+        {% render 'atc-button', product: product, layout: 'sticky' %}
       </div>
     </div>
   </div>

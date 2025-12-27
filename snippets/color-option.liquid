@@ -1,0 +1,44 @@
+{% comment %}
+  Snippet for color option value
+  Usage:
+  layout: "sticky" only for sticky button layout
+  {% render 'color-option', option: option, layout: "sticky" %}
+{% endcomment %}
+
+{%- for value in option.values -%}
+  {%- assign variant = value.variant -%}
+  {%- assign image_url = variant.featured_image | image_url: width: 88 -%}
+  <div class="product__option-value product__color-option">
+    <label
+      for="{{ option.name | handleize }}-{{ forloop.index }}"
+      class="cursor-pointer"
+      title="{{ value.name }}"
+    >
+      <input
+        type="radio"
+        value="{{ variant.id }}"
+        id="{{ option.name | handleize }}-{{ forloop.index }}"
+        name="{{ option.name }}"
+        class="sr-only peer color-input"
+        data-media-id="{{ variant.featured_media.id }}"
+        {% if option.selected_value == value %}
+          checked
+        {% endif %}
+      >
+      {% if image_url != blank %}
+        <span
+          class="color__option block {% if layout == 'sticky' %}w-6 h-6{% else %}w-22 h-22{% endif %} peer-checked:ring peer-checked:ring-black bg-center bg-cover focus-visible"
+          style="background-image:url({{ image_url }});"
+          tabindex="0"
+        ></span>
+      {% else %}
+        <span
+          class="block {% if layout == 'sticky' %}w-6 h-6{% else %}w-10 h-10{% endif %} rounded-full ring-1 peer-checked:ring peer-checked:ring-offset-1 peer-checked:ring-black focus-visible"
+          style="background-color:{{ value.name | downcase }};"
+          tabindex="0"
+        ></span>
+        <span class="sr-only">{{ value.name }}</span>
+      {% endif %}
+    </label>
+  </div>
+{%- endfor -%}

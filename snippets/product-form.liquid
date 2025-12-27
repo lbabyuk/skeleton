@@ -31,31 +31,7 @@
         class="sr-only"
         aria-hidden="true"
       >
-      <button
-        type="submit"
-        name="add"
-        class="add-to-cart-button button--secondary cursor-pointer w-full disabled:cursor-not-allowed focus-visible"
-        data-add-to-bag-text="{{ 'products.product.add_to_bag' | t | escape }}"
-        data-sold-out-text="{{ 'products.product.sold_out' | t | escape }}"
-        {% unless product.selected_or_first_available_variant.available %}
-          disabled
-        {% endunless %}
-      >
-        <span aria-live="polite" aria-hidden="true">
-          {%- if product.selected_or_first_available_variant.available -%}
-            {{ 'products.product.add_to_bag' | t | escape }}
-          {%- else -%}
-            {{ 'products.product.sold_out' | t | escape }}
-          {%- endif -%}
-        </span>
-        <span class="sr-only">
-          {% if product.selected_or_first_available_variant.available %}
-            {{ 'products.product.add_to_bag' | t | escape }}
-          {% else %}
-            {{ 'products.product.sold_out' | t | escape }}
-          {% endif %}
-        </span>
-      </button>
+      {% render 'atc-button', product: product %}
       <div
         class="form-message min-h-5 transition-opacity duration-300 pointer-events-none subtitle {% unless product.selected_or_first_available_variant.available %}text-red-500{% endunless %}"
         role="status"

@@ -1,0 +1,71 @@
+{% comment %}
+  Snippet for color option value
+  Usage:
+  layout: "sticky" only for sticky button layout
+  {% render 'size-option', option: option, layout: "sticky" %}
+{% endcomment %}
+
+{% if layout == 'sticky' %}
+  {% for value in option.values %}
+    {% assign variant = value.variant %}
+    <label
+      for="size-{{ forloop.index }}"
+      tabindex="0"
+      class="
+        cursor-pointer
+        block subtitle focus-visible hover:underline
+        {% unless variant.available %}
+          line-through opacity-50 hover:no-underline
+        {% endunless %}
+      "
+      data-size-option
+    >
+      {{ value.name }}
+    </label>
+
+    <input
+      type="radio"
+      value="{{ variant.id }}"
+      id="size-{{ forloop.index }}"
+      name="id"
+      class="sr-only"
+      {% if option.selected_value == value %}
+        checked
+      {% endif %}
+    >
+  {% endfor %}
+
+{% else %}
+  {%- for value in option.values -%}
+    {%- assign variant = value.variant -%}
+
+    <div class="product__option-value product__size-option">
+      <label
+        for="size-{{ forloop.index }}"
+        class="
+          chip cursor-pointer size-label focus-visible
+          {% unless variant.available %}
+          line-through opacity-50
+           {% endunless %}
+        "
+      >
+        <input
+          type="radio"
+          value="{{ value.variant.id }}"
+          id="size-{{ forloop.index }}"
+          name="Size"
+          class="sr-only peer"
+          {% if option.selected_value == value %}
+            checked
+          {% endif %}
+        >
+        <span
+          tabindex="0"
+          class="size__option block subtitle text-center peer-checked:ring p-4 focus-visible"
+        >
+          {{ value.name }}
+        </span>
+      </label>
+    </div>
+  {%- endfor -%}
+{% endif %}
