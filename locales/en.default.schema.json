@@ -315,6 +315,23 @@
             }
           }
         },
+        "vendor": {
+          "name": "Vendor",
+          "settings": {
+            "text_style": {
+              "label": "Text style",
+              "options__1": {
+                "label": "Body"
+              },
+              "options__2": {
+                "label": "Subtitle"
+              },
+              "options__3": {
+                "label": "Uppercase"
+              }
+            }
+          }
+        },
         "quantity_input": {
           "name": "Quantity input"
         },

@@ -59,10 +59,19 @@
                 class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
               >
                 {{- block.settings.text -}}
-                {% if product.vendor %}
-                  — {{ product.vendor }}
-                {% endif %}
               </span>
+          {%- endcase -%}
+        {%- endfor -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'vendor' -%}
+              <p
+                {{ block.shopify_attributes }}
+                class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+              >
+                 <span class="hidden">{{ 'products.product.vendor' | t }}:</span>
+                {{- product.vendor -}}
+              </p>
           {%- endcase -%}
         {%- endfor -%}
         <div class="product__info--heading flex flex-col gap-3">
@@ -100,7 +109,7 @@
                   role="status"
                   {{ block.shopify_attributes }}
                 >
-                  <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span>
+                  <span class="hidden">{{ 'products.product.sku' | t }}:</span>
                   {{- product.selected_or_first_available_variant.sku -}}
                 </p>
             {%- endcase -%}
@@ -182,7 +191,6 @@
 <script src="{{ 'sticky-options-popover.js' | asset_url }}" defer></script>
 <script src="{{ 'sticky-add-to-cart.js' | asset_url }}" defer></script>
 
-
 {% schema %}
 {
   "name": "t:general.product",
@@ -237,6 +245,33 @@
     {
       "type": "sku",
       "name": "t:sections.main-product.blocks.sku.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "body"
+            },
+            {
+              "value": "subtitle",
+              "label": "subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Body"
+        }
+      ]
+    },
+    {
+      "type": "vendor",
+      "name": "t:sections.main-product.blocks.vendor.name",
       "limit": 1,
       "settings": [
         {

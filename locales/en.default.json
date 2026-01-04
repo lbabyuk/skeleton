@@ -107,7 +107,8 @@
       "benefits": "Customer benefits",
       "quantity_decrease": "quantity decrease",
       "quantity_increase": "quantity increase",
-      "success_message": "Added to cart successfully!"
+      "success_message": "Added to cart successfully!",
+      "vendor": "VENDOR"
     }
   },
   "slider": {
