@@ -14,23 +14,16 @@
 
 {%- assign is_best_seller = false -%}
 {%- assign is_highly_rated = false -%}
-
-{%- if normalized_tags contains 'best seller' -%}
-  {%- assign is_best_seller = true -%}
-{%- endif -%}
-
-{%- if normalized_tags contains 'highly rated' -%}
-  {%- assign is_highly_rated = true -%}
-{%- endif -%}
-
 {%- assign is_on_sale = false -%}
-{%- assign is_highly_rated = false -%}
 
 {%- if variant.compare_at_price > variant.price -%}
   {%- assign is_on_sale = true -%}
 
-{%- elsif stars >= 4 and variant.price == variant.compare_at_price -%}
+{%- elsif stars > 4 -%}
   {%- assign is_highly_rated = true -%}
+
+{%- elsif normalized_tags contains 'best seller' -%}
+  {%- assign is_best_seller = true -%}
 {%- endif -%}
 
 {%- if is_on_sale -%}
