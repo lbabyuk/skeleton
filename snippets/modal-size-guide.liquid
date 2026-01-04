@@ -9,7 +9,7 @@
     <button class="close-modal cursor-pointer" aria-label="Close">
       {{ 'modal-close-icon.svg' | inline_asset_content }}
     </button>
-    {%- if metafield and metafield.value -%}
+    {%- if metafield and metafield.value != blank -%}
       <section class="text subtitle md:body">{{ metafield }}</section>
     {%- endif -%}
   </div>

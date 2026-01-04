@@ -3,7 +3,7 @@
   media, content, and add-to-cart form.
 {% endcomment %}
 
-{% assign description_text = product.metafields.custom.description %}
+{% assign description_text = product.metafields.custom.description.value %}
 {% assign size_guide = product.metafields.custom.size_guide %}
 
 {% assign reviews = product.metafields.custom.reviews.value %}
@@ -67,7 +67,7 @@
             {%- when 'vendor' -%}
               <p
                 {{ block.shopify_attributes }}
-                class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+                class="product__vendor inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
               >
                  <span class="hidden">{{ 'products.product.vendor' | t }}:</span>
                 {{- product.vendor -}}
@@ -140,7 +140,7 @@
         {%- for block in section.blocks -%}
           {%- case block.type -%}
             {%- when 'description' -%}
-              {%- unless description_text.blank -%}
+              {%- unless description_text == blank -%}
                 <div class="product__description subtitle" {{ block.shopify_attributes }}>
                   <p class="subtitle">{{ description_text | escape }}</p>
                 </div>

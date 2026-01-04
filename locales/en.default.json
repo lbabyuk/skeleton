@@ -74,7 +74,8 @@
     "empty_city": "Unknown",
     "empty_review": "Amazing product, completely met my expectations!",
     "title": "Reviews",
-    "out_of_stars": "{{ count }} out of 5 stars"
+    "out_of_stars": "{{ count }} out of 5 stars",
+    "no_reviews": "Be the first to review this product!"
   },
   "products": {
     "product": {

@@ -8,8 +8,8 @@
         %}
 {% endcomment %}
 
+<h2 class="h2 text-center section-title pb-8 md:pb-12">{{ section.settings.heading }}</h2>
 {%- if recommendations.performed? and recommendations.products_count > 0 -%}
-  <h2 class="h2 text-center section-title pb-8 md:pb-12">{{ section.settings.heading }}</h2>
   <div
     class="swiper slider-products relative"
     aria-roledescription="carousel"
@@ -42,5 +42,5 @@
   </div>
 
 {%- else -%}
-  <h2 class="empty-product-message">{{ 'products.product.no_recommended_products' | t }}</h2>
+  <h2 class="empty-product-message text-center">{{ 'products.product.no_recommended_products' | t }}</h2>
 {%- endif -%}

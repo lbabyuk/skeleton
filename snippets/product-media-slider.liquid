@@ -61,27 +61,55 @@
         </div>
       {% endfor %}
 
-      {% for color_obj in media_list %}
-        {% assign color_name = color_obj.color | downcase | strip %}
-        {% if color_name == selected_color %}
-          {% for image in color_obj.images.value %}
-            <div
-              class="swiper-slide cursor-pointer focus-visible"
-              data-media-id="Image-{{ forloop.index }}"
-              aria-label="Thumbnail {{ forloop.index }}"
-              role="button"
-              tabindex="0"
-              data-color="{{ selected_color }}"
-            >
-              {{
-                image
-                | image_url: width: 88, height: 88
-                | image_tag: loading: 'lazy', width: 88, height: 88, alt: image.alt, class: 'w-full h-full object-cover'
-              }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endfor %}
+      {% if media_list != blank %}
+        {% for color_obj in media_list %}
+          {% assign color_name = color_obj.color | downcase | strip %}
+          {% if color_name == selected_color %}
+            {% for image in color_obj.images.value %}
+              {% assign image_counter = image_counter | plus: 1 %}
+              <div
+                class="swiper-slide cursor-pointer focus-visible"
+                data-media-id="{{ image_counter }}"
+                aria-label="Thumbnail {{ forloop.index }}"
+                role="button"
+                tabindex="0"
+                data-color="{{ selected_color }}"
+              >
+                {{
+                  image
+                  | image_url: width: 88, height: 88
+                  | image_tag:
+                    loading: 'lazy',
+                    width: 88,
+                    height: 88,
+                    alt: image.alt,
+                    class: 'w-full h-full object-cover'
+                }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <div
+          class="swiper-slide cursor-pointer focus-visible"
+          data-media-id="{{ image_counter }}"
+          aria-label="Thumbnail {{ forloop.index }}"
+          role="button"
+          tabindex="0"
+          data-color="{{ selected_color }}"
+        >
+          {{
+            product.selected_or_first_available_variant.featured_image
+            | image_url: width: 88, height: 88
+            | image_tag:
+              loading: 'lazy',
+              width: 88,
+              height: 88,
+              alt: product.selected_or_first_available_variant.featured_image.alt,
+              class: 'w-full h-full object-cover'
+          }}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 
@@ -118,38 +146,66 @@
           }}
         </div>
       {% endfor %}
-      {% for color_obj in media_list %}
-        {% assign color_name = color_obj.color | downcase | strip %}
-        {% if color_name == selected_color %}
-          {% for image in color_obj.images.value %}
-            <div
-              class="image-container swiper-slide flex relative"
-              role="group"
-              aria-label="Main image {{ forloop.index }}"
-              data-media-id="Image-{{ forloop.index }}"
-              {% if media.id == selected_variant.featured_media.id %}
-                data-initial-media="true"
-              {% endif %}
-            >
-              {% render 'tags', stars: stars -%}
-              {{-
-                image
-                | image_url: width: 536, height: 536
-                | image_tag:
-                  loading: 'eager',
-                  width: 536,
-                  height: 536,
-                  alt: image.alt,
-                  class: 'w-full h-full object-cover',
-                  sizes: '(max-width: 768px) 100vw, 50vw',
-                  widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
-                  fetchpriority: 'high',
-                  class: 'w-full h-full object-cover'
-              }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endfor %}
+      {% if media_list != blank %}
+        {% for color_obj in media_list %}
+          {% assign color_name = color_obj.color | downcase | strip %}
+          {% if color_name == selected_color %}
+            {% for image in color_obj.images.value %}
+              {% assign image_counter = image_counter | plus: 1 %}
+              <div
+                class="image-container swiper-slide flex relative"
+                role="group"
+                aria-label="Main image {{ forloop.index }}"
+                data-media-id="{{ image_counter }}"
+                {% if media.id == selected_variant.featured_media.id %}
+                  data-initial-media="true"
+                {% endif %}
+              >
+                {% render 'tags', stars: stars -%}
+                {{-
+                  image
+                  | image_url: width: 536, height: 536
+                  | image_tag:
+                    loading: 'eager',
+                    width: 536,
+                    height: 536,
+                    alt: image.alt,
+                    sizes: '(max-width: 768px) 100vw, 50vw',
+                    widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+                    fetchpriority: 'high',
+                    class: 'w-full h-full object-cover'
+                }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <div
+          class="image-container swiper-slide flex relative"
+          role="group"
+          aria-label="Main image {{ forloop.index }}"
+          data-media-id="{{ image_counter }}"
+          {% if media.id == selected_variant.featured_media.id %}
+            data-initial-media="true"
+          {% endif %}
+        >
+          {% render 'tags', stars: stars -%}
+          {{
+            product.selected_or_first_available_variant.featured_image
+            | image_url: width: 536, height: 536
+            | image_tag:
+              loading: 'eager',
+              width: 536,
+              height: 536,
+              alt: image.alt,
+              sizes: '(max-width: 768px) 100vw, 50vw',
+              widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+              fetchpriority: 'high',
+              alt: product.selected_or_first_available_variant.featured_image.alt,
+              class: 'w-full h-full object-cover'
+          }}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </div>

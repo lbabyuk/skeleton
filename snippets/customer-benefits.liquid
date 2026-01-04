@@ -6,20 +6,21 @@
 {% endcomment %}
 
 {% assign benefits_list = product.metafields.custom.customer_benefits.value %}
-{%- if benefits_list -%}
+{%- if benefits_list != blank -%}
   <div class="customer__benefits w-full flex flex-col gap-3 h-21" {{ shopify_attributes }}>
     {%- for benefit in benefits_list -%}
       <p class="flex gap-1.5 subtitle">
-        {%- if benefit.icon -%}
+        {%- if benefit.icon != blank -%}
           <img
             src="{{benefit.icon | image_url: width: 20}}"
             width="20"
             height="20"
             alt="{{ 'products.product.benefits' | t }}"
           >
+            
         {%- endif -%}
-        {%- if benefit.benefit -%}
-          <span>{{ benefit.benefit }}</span>
+        {%- if benefit.benefit != blank -%}
+          <span>{{ benefit.benefit | escape }}</span>
         {%- endif -%}
       </p>
     {%- endfor -%}
