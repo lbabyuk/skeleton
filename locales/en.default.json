@@ -103,6 +103,8 @@
       "sku": "SKU",
       "currently_unavailable": "Product is currently unavailable",
       "in_stock": "In Stock",
+      "show_running_out": "Running Out: {{ quantity }} left",
+      "show_in_stock": "{{ quantity }} in stock",
       "out_of_stock": "Out Of Stock",
       "running_out": "Running Out",
       "benefits": "Customer benefits",

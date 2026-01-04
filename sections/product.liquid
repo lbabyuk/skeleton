@@ -69,7 +69,7 @@
                 {{ block.shopify_attributes }}
                 class="product__vendor inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
               >
-                 <span class="hidden">{{ 'products.product.vendor' | t }}:</span>
+                <span class="hidden">{{ 'products.product.vendor' | t }}:</span>
                 {{- product.vendor -}}
               </p>
           {%- endcase -%}
@@ -115,13 +115,21 @@
             {%- endcase -%}
           {%- endfor -%}
         </div>
+        <div class="flex gap-3">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'price' -%}
+                {% render 'product-price', shopify_attributes: block.shopify_attributes, product: product %}
+            {%- endcase -%}
+          {%- endfor -%}
 
-        {%- for block in section.blocks -%}
-          {%- case block.type -%}
-            {%- when 'price' -%}
-              {% render 'product-price', shopify_attributes: block.shopify_attributes, product: product %}
-          {%- endcase -%}
-        {%- endfor -%}
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'inventory' -%}
+                {% render 'inventory-status', product: product, block: block %}
+            {% endcase -%}
+          {%- endfor %}
+        </div>
 
         {%- for block in section.blocks -%}
           {%- case block.type -%}
@@ -293,6 +301,48 @@
           ],
           "default": "body",
           "label": "Body"
+        }
+      ]
+    },
+    {
+      "type": "inventory",
+      "name": "t:sections.main-product.blocks.inventory_status.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "text_style",
+          "options": [
+            {
+              "value": "body",
+              "label": "body"
+            },
+            {
+              "value": "subtitle",
+              "label": "subtitle"
+            },
+            {
+              "value": "uppercase",
+              "label": "uppercase"
+            }
+          ],
+          "default": "body",
+          "label": "Body"
+        },
+        {
+          "type": "range",
+          "id": "inventory_threshold",
+          "label": "t:sections.main-product.blocks.inventory_status.settings.inventory_threshold.label",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 10
+        },
+        {
+          "type": "checkbox",
+          "id": "show_inventory_quantity",
+          "label": "t:sections.main-product.blocks.inventory_status.settings.show_inventory_quantity.label",
+          "default": true
         }
       ]
     },
