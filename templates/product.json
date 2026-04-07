@@ -128,47 +128,12 @@
       "settings": {
         "image": "shopify://shop_images/cta-hero.webp"
       }
-    },
-    "section_tabs_7QLpUK": {
-      "type": "section-tabs",
-      "blocks": {
-        "tab_pGz76p": {
-          "type": "tab",
-          "repeater": "{{ product.metafields.custom.why_formula.value }}",
-          "settings": {
-            "tab_icon": "{{ block.repeater.tab_icon.value }}",
-            "tab_title": "{{ block.repeater.tab_title.value }}",
-            "content_image": "{{ block.repeater.image.value }}",
-            "content_badge": "{{ block.repeater.badge.value }}",
-            "content_title": "{{ block.repeater.title.value }}",
-            "content_subtitle": "<p>{{ block.repeater.subtitle | metafield_tag }}</p>",
-            "content_result_list": "{{ block.repeater.result_list | metafield_tag }}",
-            "content_note_icon": "{{ block.repeater.note_icon.value }}",
-            "content_note_title": "{{ block.repeater.note_title.value }}",
-            "content_note_text": "{{ block.repeater.note_text | metafield_tag }}"
-          }
-        }
-      },
-      "block_order": [
-        "tab_pGz76p"
-      ],
-      "name": "Why formula works",
-      "settings": {
-        "section_pretitle": "",
-        "section_title": "",
-        "section_subtitle": "",
-        "padding_top": 20,
-        "padding_bottom": 0,
-        "bg_color": "",
-        "sect_class": ""
-      }
     }
   },
   "order": [
     "main",
     "recommended_products_PPjAzP",
     "reviews_4eD8wp",
-    "image_banner_AeQgfp",
-    "section_tabs_7QLpUK"
+    "image_banner_AeQgfp"
   ]
 }
