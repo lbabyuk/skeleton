@@ -1,0 +1,139 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product",
+      "blocks": {
+        "quantity_input_i7CgM9": {
+          "type": "quantity_input",
+          "settings": {}
+        },
+        "modal_LVR9MF": {
+          "type": "modal",
+          "settings": {}
+        },
+        "title_eapfBp": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating_mceLCd": {
+          "type": "rating",
+          "settings": {}
+        },
+        "description_HiyUPx": {
+          "type": "description",
+          "settings": {}
+        },
+        "price_VtJaRk": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_JhAPd3": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "customer_benefits_NAYM3N": {
+          "type": "customer_benefits",
+          "settings": {}
+        },
+        "collapsible_rows_ErqAqq": {
+          "type": "collapsible_rows",
+          "settings": {
+            "title": "SIZE & FIT",
+            "metafield": "size_fit"
+          }
+        },
+        "collapsible_rows_7YP77W": {
+          "type": "collapsible_rows",
+          "settings": {
+            "title": "PRODUCT NOTES",
+            "metafield": "product_notes"
+          }
+        },
+        "collapsible_rows_hPrHBa": {
+          "type": "collapsible_rows",
+          "settings": {
+            "title": "DELIVERY & RETURNS",
+            "metafield": "return_policy"
+          }
+        }
+      },
+      "block_order": [
+        "quantity_input_i7CgM9",
+        "modal_LVR9MF",
+        "title_eapfBp",
+        "rating_mceLCd",
+        "description_HiyUPx",
+        "price_VtJaRk",
+        "variant_picker_JhAPd3",
+        "customer_benefits_NAYM3N",
+        "collapsible_rows_ErqAqq",
+        "collapsible_rows_7YP77W",
+        "collapsible_rows_hPrHBa"
+      ],
+      "settings": {}
+    },
+    "recommended_products_PPjAzP": {
+      "type": "recommended-products",
+      "name": "Recommended products",
+      "settings": {
+        "heading": "Recommended Products"
+      }
+    },
+    "reviews_4eD8wp": {
+      "type": "reviews",
+      "name": "Reviews",
+      "settings": {}
+    },
+    "image_banner_AeQgfp": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_JkBEJT": {
+          "type": "heading",
+          "settings": {
+            "heading": "Step Into Next-Level Comfort",
+            "heading_size": "h2"
+          }
+        },
+        "text_qrBaRA": {
+          "type": "text",
+          "settings": {
+            "text": "Experience the perfect mix of style, support, and all-day cushioning with Nike Air Max Plus.",
+            "text_style": "body"
+          }
+        },
+        "button_a7wc6M": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_JkBEJT",
+        "text_qrBaRA",
+        "button_a7wc6M"
+      ],
+      "name": "t:sections.image_banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/cta-hero.webp"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recommended_products_PPjAzP",
+    "reviews_4eD8wp",
+    "image_banner_AeQgfp"
+  ]
+}
