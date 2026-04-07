@@ -1,0 +1,678 @@
+{% style %}
+  .section-why-formula-works__headings {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .section-why-formula-works__headings h2 {
+    font-style: normal;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+    color: #141414;
+    text-align: center;
+  }
+  @media (max-width: 768px) {
+    .section-why-formula-works__headings h2 {
+      margin: 0 0 12px;
+      max-width: 100%;
+    }
+  }
+  .section-why-formula-works__headings p {
+    color: #737373;
+    font-size: 14px;
+    line-height: 1.43;
+    font-weight: 400;
+    margin: 0;
+    max-width: 486px;
+    text-align: center;
+  }
+  .section-why-formula-works__pretitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .section-why-formula-works__pretitle .pretitle-image {
+    width: 14px;
+    height: 14px;
+  }
+  .section-why-formula-works .pretitle-text {
+    font-size: 10px;
+    font-weight: 400;
+    color: #737373;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    display: flex;
+  }
+  .section-why-formula-works .tabs {
+    width: 100%;
+  }
+  .section-why-formula-works .tabs-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid #eaddd5;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scroll-padding-inline: 16px;
+  }
+  .section-why-formula-works .tabs-nav::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .section-why-formula-works .tabs-nav {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .section-why-formula-works .tabs-nav::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .section-why-formula-works .tab-btn {
+    padding: 12px 40px;
+    color: #141414;
+    border: none;
+    background: none;
+    cursor: pointer;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 14px;
+    position: relative;
+    scroll-snap-align: center;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+  }
+  .section-why-formula-works .tab-btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    transform: translate(-50%);
+    height: 2px;
+    background: #358d64;
+    transition: width 0.3s ease;
+    -webkit-transition: width 0.3s ease;
+    -moz-transition: width 0.3s ease;
+    -ms-transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+  }
+  .section-why-formula-works .tab-btn.active::after {
+    width: 100%;
+  }
+
+  .section-why-formula-works .tab-btn img {
+    width: 18px;
+    height: 18px;
+  }
+  .section-why-formula-works .tabs-content {
+    padding: 30px 0;
+  }
+  .section-why-formula-works .tab-panel {
+    display: none;
+    flex-wrap: wrap;
+  }
+  .section-why-formula-works .tab-panel.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-why-formula-works .tab-panel__inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  @media screen and (min-width: 1050px) {
+    .section-why-formula-works .tab-panel__inner {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+  .section-why-formula-works .info__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .section-why-formula-works .info__heading-badge {
+    background-color: #f0f0f0;
+    color: #4d4d4d;
+    padding: 4px 12px;
+    font-size: 10px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .section-why-formula-works .info__heading-title {
+    color: #141414;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.33;
+    margin: 0;
+  }
+  .section-why-formula-works .info__subtitle p span {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 100%;
+    color: #358d64;
+    margin-bottom: 0;
+  }
+  .section-why-formula-works .info__list ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .section-why-formula-works .info__list ul li {
+    font-size: 14px;
+    color: #737373;
+    position: relative;
+    padding-left: 16px;
+  }
+  .section-why-formula-works .info__list ul li::before {
+    content: ">";
+    color: #358d64;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    top: 2px;
+  }
+  .section-why-formula-works .info__note-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-why-formula-works .info__note-title span {
+    font-size: 10px;
+    font-weight: 400;
+    color: #737373;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+  }
+  .section-why-formula-works .info__note-title img {
+    width: 12px;
+    height: 12px;
+  }
+  .section-why-formula-works .info__list {
+    margin-bottom: 16px;
+  }
+  .section-why-formula-works .info__note {
+    background-color: #f0f0f0;
+    margin-top: auto;
+    padding: 13px;
+    border-radius: 1px solid #4d4d4d1a;
+    -webkit-border-radius: 1px solid #4d4d4d1a;
+    -moz-border-radius: 1px solid #4d4d4d1a;
+    -ms-border-radius: 1px solid #4d4d4d1a;
+    -o-border-radius: 1px solid #4d4d4d1a;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .section-why-formula-works .info__note-text {
+    color: #4d4d4d;
+  }
+
+  .section-why-formula-works .info__note-text p {
+    font-size: 12px;
+    line-height: 1.625;
+  }
+  .section-why-formula-works .tab-panel__inner .tab-panel__image {
+    display: flex;
+  }
+  .section-why-formula-works .tab-panel__inner .tab-panel__image img {
+    object-fit: cover;
+  }
+  @media (max-width: 768px) {
+    .section-why-formula-works .tab-panel__inner {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .section-why-formula-works .tab-panel__info {
+      order: -1;
+    }
+    .section-why-formula-works .tab-panel__inner .tab-panel__image {
+      width: 100%;
+      /* max-width: 400px; */
+      margin: 0 auto;
+    }
+  }
+
+  .section-why-formula-works .container {
+    max-width: 1440px !important;
+  }
+  .section-why-formula-works .tab-panel__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  @media screen and (min-width: 1200px) {
+    .section-why-formula-works .info__heading-title {
+      font-size: 32px;
+    }
+    .section-why-formula-works .info__subtitle p span {
+      font-size: 13px;
+    }
+    .section-why-formula-works .info__list ul li {
+      font-size: 17px;
+    }
+    .section-why-formula-works .info__note-text p {
+      font-size: 16px;
+    }
+  }
+
+  .section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }}
+  }
+{% endstyle %}
+{% liquid
+  assign section_title = section.settings.section_title
+  assign section_subtitle = section.settings.section_subtitle
+  assign section_pretitle = section.settings.section_pretitle
+  assign pretitle_icon = section.settings.pretitle_icon
+%}
+<div
+  class="section-why-formula-works section-{{ section.id }} {{section.settings.sect_class}}  py-15 md:py-20 px-4 md:px-15"
+  id="section-why-formula-works-{{ section.id }}"
+>
+  {%- if section_title != blank or section_subtitle != blank or pretitle_icon != blank or section_pretitle != blank -%}
+    <div class="section-why-formula-works__headings container">
+      <div class="section-why-formula-works__pretitle">
+        <div class="pretitle-image">
+          {%- if pretitle_icon != blank -%}
+            {{
+              pretitle_icon
+              | image_url: width: 18
+              | image_tag: loading: 'lazy', width: 18, alt: pretitle_icon.alt, class: 'pretitle-icon'
+            }}
+          {%- endif -%}
+        </div>
+        {%- if section_pretitle != blank -%}
+          <span class="pretitle-text m0">
+            {{ section_pretitle }}
+          </span>
+        {%- endif -%}
+      </div>
+      {%- if section_title != blank -%}
+        <h2 class="section-why-formula-works__title mt0 mb10">{{ section_title }}</h2>
+      {%- endif -%}
+      {%- if section_subtitle != blank -%}
+        <p class="section-why-formula-works__subtitle mt0 mb30">{{ section_subtitle }}</p>
+      {%- endif -%}
+    </div>
+  {% endif %}
+
+  <div class="section-why-formula-works__tabs container">
+    <div class="tabs" data-tabs>
+      <div class="tabs-nav">
+        {%- for block in section.blocks -%}
+          {% liquid
+            assign tab_title = block.settings.tab_title
+            assign tab_icon = block.settings.tab_icon
+          %}
+          {%- if tab_title != blank or tab_icon != blank -%}
+            <button class="tab-btn{% if forloop.first %} active{% endif %}" data-tab="tab-{{ forloop.index }}">
+              {% if tab_icon != blank -%}
+                {{
+                  tab_icon
+                  | image_url: width: 18
+                  | image_tag: loading: 'lazy', width: 18, alt: tab_icon.alt, class: 'tab-icon'
+                }}
+              {%- endif -%}
+              {% if tab_title != blank -%}
+                {{ tab_title }}
+              {%- endif -%}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="tabs-content">
+        {% for block in section.blocks %}
+          {% liquid
+            assign content_image = block.settings.content_image
+            assign content_badge = block.settings.content_badge
+            assign content_title = block.settings.content_title
+            assign content_subtitle = block.settings.content_subtitle
+            assign content_note_icon = block.settings.content_note_icon
+            assign content_note_title = block.settings.content_note_title
+            assign content_note_text = block.settings.content_note_text
+            assign content_result_list = block.settings.content_result_list
+          %}
+          <div class="tab-panel{% if forloop.first %} active{% endif %}" id="tab-{{ forloop.index }}">
+            <div class="tab-panel__inner">
+              {%- if content_image != blank -%}
+                <div class="tab-panel__image">
+                  {{
+                    content_image
+                    | image_url: width: 2000
+                    | image_tag:
+                      loading: 'lazy',
+                      width: content_image.width,
+                      widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+                      alt: content_image.alt
+                  }}
+                </div>
+              {%- endif -%}
+              <div class="tab-panel__info">
+                <div class="info__heading">
+                  {%- if content_badge != blank -%}
+                    <span class="info__heading-badge">{{ content_badge }}</span>
+                  {%- endif -%}
+                  {%- if content_title != blank -%}
+                    <h3 class="info__heading-title">{{ content_title }}</h3>
+                  {% endif %}
+                </div>
+                {%- if content_subtitle != blank -%}
+                  <div class="info__subtitle">{{ content_subtitle }}</div>
+                {%- endif -%}
+                {%- if content_result_list != blank -%}
+                  <div class="info__list">
+                    {% for item in content_result_list %}
+                      {{ item }}
+                    {% endfor %}
+                  </div>
+                {%- endif -%}
+                {%- if content_note_icon != blank or content_note_title != blank or content_note_text != blank -%}
+                  <div class="info__note">
+                    <div class="info__note-title">
+                      {%- if content_note_icon != blank -%}
+                        {{
+                          content_note_icon
+                          | image_url: width: 18
+                          | image_tag: loading: 'lazy', width: 18, alt: content_note_icon.alt, class: 'tab-icon'
+                        }}
+                      {%- endif -%}
+                      {%- if content_note_title != blank -%}
+                        <span>{{ content_note_title }}</span>
+                      {% endif %}
+                    </div>
+                    {%- if content_note_text != blank -%}
+                      <div class="info__note-text">
+                        {{ content_note_text }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-tabs]').forEach((tabContainer) => {
+      const buttons = tabContainer.querySelectorAll('.tab-btn');
+      const panels = tabContainer.querySelectorAll('.tab-panel');
+
+      const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.tab;
+          buttons.forEach((button) => button.classList.remove('active'));
+          panels.forEach((panel) => panel.classList.remove('active'));
+          btn.classList.add('active');
+          tabContainer.querySelector(`#${target}`).classList.add('active');
+          btn.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'center',
+            block: 'nearest'
+          });
+        });
+      });
+
+      const tabsContent = tabContainer.querySelector('.tabs-content');
+      if (!tabsContent) return;
+
+      let startX = null;
+      let startY = null;
+      let startTime = null;
+      let swipeAxis = null;
+
+      const getActiveIndex = () => {
+        const activeButton = tabContainer.querySelector('.tab-btn.active');
+        if (!activeButton) return 0;
+        return Math.max(0, Array.from(buttons).indexOf(activeButton));
+      };
+
+      const goToIndex = (nextIndex) => {
+        if (nextIndex < 0 || nextIndex >= buttons.length) return;
+        const btn = buttons[nextIndex];
+        if (!btn) return;
+        btn.click();
+      };
+
+      tabsContent.addEventListener(
+        'touchstart',
+        (event) => {
+          if (!isMobile()) return;
+          if (event.touches.length !== 1) return;
+
+          const touch = event.touches[0];
+          startX = touch.clientX;
+          startY = touch.clientY;
+          startTime = Date.now();
+          swipeAxis = null;
+        },
+        { passive: true }
+      );
+
+      tabsContent.addEventListener(
+        'touchmove',
+        (event) => {
+          if (!isMobile()) return;
+          if (startX === null || startY === null) return;
+          if (event.touches.length !== 1) return;
+
+          const touch = event.touches[0];
+          const dx = touch.clientX - startX;
+          const dy = touch.clientY - startY;
+          const absX = Math.abs(dx);
+          const absY = Math.abs(dy);
+
+          if (swipeAxis === null) {
+            const decisionThreshold = 10;
+            if (absX < decisionThreshold && absY < decisionThreshold) return;
+            swipeAxis = absX > absY ? 'x' : 'y';
+          }
+
+          if (swipeAxis === 'x') {
+            event.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+
+      tabsContent.addEventListener(
+        'touchend',
+        (event) => {
+          if (!isMobile()) return;
+          if (startX === null || startY === null || startTime === null) return;
+          if (event.changedTouches.length !== 1) return;
+
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - startX;
+          const dy = touch.clientY - startY;
+          const dt = Date.now() - startTime;
+
+          startX = null;
+          startY = null;
+          startTime = null;
+          swipeAxis = null;
+
+          const absX = Math.abs(dx);
+          const absY = Math.abs(dy);
+
+          const isHorizontalSwipe = absX > 40 && absX > absY * 1.5;
+          const isFastEnough = dt < 700;
+          if (!isHorizontalSwipe || !isFastEnough) return;
+
+          const activeIndex = getActiveIndex();
+          if (dx < 0) goToIndex(activeIndex + 1);
+          if (dx > 0) goToIndex(activeIndex - 1);
+        },
+        { passive: true }
+      );
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Why formula works",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Product why formula works section metafield"
+    },
+    {
+      "type": "header",
+      "content": "header"
+    },
+    {
+      "type": "image_picker",
+      "id": "pretitle_icon",
+      "label": "Pretitle icon"
+    },
+    {
+      "type": "text",
+      "id": "section_pretitle",
+      "label": "Section pretitle"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Section subtitle"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "bg_color"
+    },
+    {
+      "type": "text",
+      "id": "sect_class",
+      "label": "sect_class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "tab_icon",
+          "label": "Tab icon"
+        },
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab title"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "content_badge",
+          "label": "Badge"
+        },
+        {
+          "type": "text",
+          "id": "content_title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content_subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "type": "richtext",
+          "id": "content_result_list",
+          "label": "Result list"
+        },
+        {
+          "type": "image_picker",
+          "id": "content_note_icon",
+          "label": "Note icon"
+        },
+        {
+          "type": "text",
+          "id": "content_note_title",
+          "label": "Note title"
+        },
+        {
+          "type": "richtext",
+          "id": "content_note_text",
+          "label": "Note text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why formula works",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}

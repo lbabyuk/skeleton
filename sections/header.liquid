@@ -1,9 +1,13 @@
-<header class="full-width header" id="Header-{{ section.id }}" data-section-id="{{ section.id }}">
+<header
+  class="full-width header fixed top-0 z-50 bg-white w-full"
+  id="Header-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+>
   <div class="header__container flex justify-between items-center h-14 w-full md:h-21 md:py-7.5 py-4 px-4 md:px-15">
     <div class="header__logo hidden md:block">
       <a href="{{ routes.root_url }}" aria-label="Go to home page" class="logo">
         <span aria-hidden="true">
-          {{ 'logo-icon.svg' | inline_asset_content }}
+          {% render 'icon' with 'logo-icon' %}
         </span>
       </a>
     </div>
@@ -16,7 +20,7 @@
       aria-label="Open menu"
     >
       <span aria-hidden="true">
-        {{ 'menu-icon.svg' | inline_asset_content }}
+        {% render 'icon' with 'menu-icon' %}
       </span>
     </button>
     <nav class="header__menu md:flex gap-8 hidden text-base" aria-label="Primary navigation">
@@ -48,7 +52,7 @@
         </div>
 
         <span class="transition-colors duration-300 group-hover:text-indigo-500" aria-hidden="true">
-          {{ 'icon-cart.svg' | inline_asset_content }}
+          {% render 'icon' with 'cart-icon' %}
         </span>
       </a>
     </div>

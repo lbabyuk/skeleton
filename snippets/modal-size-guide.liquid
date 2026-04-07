@@ -7,7 +7,7 @@
   <div class="modal-inner">
     <span id="sizeGuideTitle" class="sr-only">{{ 'buttons.size_guide' | t }}</span>
     <button class="close-modal cursor-pointer" aria-label="Close">
-      {{ 'modal-close-icon.svg' | inline_asset_content }}
+      {% render 'icon' with 'modal-close-icon' %}
     </button>
     {%- if metafield and metafield.value != blank -%}
       <section class="text subtitle md:body">{{ metafield }}</section>

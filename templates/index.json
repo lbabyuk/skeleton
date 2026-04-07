@@ -9,6 +9,95 @@
  */
 {
   "sections": {
+    "custom_hero_VVBFQk": {
+      "type": "custom-hero",
+      "blocks": {
+        "slide_kPThec": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slide-three.webp",
+            "slide_link": "shopify://collections/all",
+            "title": "MORE THEN JUST SHOE — IT’S A PART OF YOUR STORY.",
+            "heading_size": "h1",
+            "subheading": "Original sneakers from Nike and other top brands that make every step feel special.",
+            "text_style": "body",
+            "content_alignment_desktop": "left",
+            "content_alignment_mobile": "center",
+            "btn_label": "Shop The Collection",
+            "btn_link": "shopify://collections/all",
+            "text_color": "#ffffff",
+            "btn_bg": "#ffffff",
+            "btn_text_color": "#111111",
+            "btn_bg_hover": "#cccccc",
+            "btn_text_color_hover": "#ffffff",
+            "overlay_color": "#111111",
+            "overlay_opacity": 0
+          }
+        },
+        "slide_DbeqmF": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slide-two.webp",
+            "slide_link": "shopify://collections/all",
+            "title": "MORE THEN JUST SHOE — IT’S A PART OF YOUR STORY.",
+            "heading_size": "h1",
+            "subheading": "Original sneakers from Nike and other top brands that make every step feel special.",
+            "text_style": "body",
+            "content_alignment_desktop": "left",
+            "content_alignment_mobile": "center",
+            "btn_label": "Shop The Collection",
+            "btn_link": "shopify://collections/all",
+            "text_color": "#ffffff",
+            "btn_bg": "#ffffff",
+            "btn_text_color": "#111111",
+            "btn_bg_hover": "#cccccc",
+            "btn_text_color_hover": "#111111",
+            "overlay_color": "#111111",
+            "overlay_opacity": 10
+          }
+        },
+        "slide_YLXF3b": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/cta-hero.webp",
+            "slide_link": "shopify://collections/all",
+            "title": "MORE THEN JUST SHOE — IT’S A PART OF YOUR STORY.",
+            "heading_size": "h1",
+            "subheading": "Original sneakers from Nike and other top brands that make every step feel special.",
+            "text_style": "body",
+            "content_alignment_desktop": "left",
+            "content_alignment_mobile": "center",
+            "btn_label": "Shop The Collection",
+            "btn_link": "shopify://collections/all",
+            "text_color": "#ffffff",
+            "btn_bg": "#ffffff",
+            "btn_text_color": "#111111",
+            "btn_bg_hover": "#cccccc",
+            "btn_text_color_hover": "#111111",
+            "overlay_color": "#111111",
+            "overlay_opacity": 10
+          }
+        }
+      },
+      "block_order": [
+        "slide_kPThec",
+        "slide_DbeqmF",
+        "slide_YLXF3b"
+      ],
+      "name": "Hero Slider",
+      "settings": {
+        "effect": "fade",
+        "show_nav": true,
+        "show_dots": true,
+        "nav_color": "#ffffff",
+        "slider_height": 700,
+        "slider_height_mb": 500,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 0
+      }
+    },
     "collections_LJ8FtQ": {
       "type": "collections",
       "name": "t:general.collections_grid",
@@ -16,9 +105,98 @@
         "grid_item_width": "collections--full",
         "grid_gap": 10
       }
+    },
+    "177460127154f914b1": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_preview_badge_fPwqhD": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_preview_badge_fPwqhD"
+      ],
+      "settings": {}
+    },
+    "two_side_section_wtC7qr": {
+      "type": "two-side-section",
+      "name": "Two Side Section",
+      "settings": {
+        "full_width": true,
+        "layout": "image_left",
+        "mobile_layout": "content_first",
+        "image": "shopify://shop_images/woman-lifts-free-weights.jpg",
+        "heading": "PERFORMANCE MEETS STYLE IN OUR SPORT CLOTHING COLLECTION.",
+        "heading_size": "h2",
+        "text": "<p>Engineered for athletes and active enthusiasts, each piece combines breathable fabrics, flexible fits, and modern design. From high-intensity workouts to casual training days, find gear that moves with you and keeps you comfortable. Built to last through every challenge, our selection supports your fitness journey with quality you can trust.</p>",
+        "text_style": "body",
+        "btn_label": "Explore more",
+        "btn_link": "shopify://collections/frontpage",
+        "btn_style": "fill",
+        "bg_color": "rgba(0,0,0,0)",
+        "content_bg": "#ffffff",
+        "text_color": "#111111",
+        "secondary_text_color": "#111111",
+        "btn_bg": "#ffffff",
+        "btn_text": "#111111",
+        "btn_border": "#111111",
+        "btn_bg_hover": "#111111",
+        "btn_text_hover": "#ffffff",
+        "btn_border_hover": "#111111",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 24,
+        "text_align": "left",
+        "text_align_mobile": "left",
+        "vertical_alignment": "flex-start",
+        "image_ratio": "adapt",
+        "image_radius": 0
+      }
+    },
+    "two_side_section_wm84gw": {
+      "type": "two-side-section",
+      "name": "Two Side Section",
+      "settings": {
+        "full_width": true,
+        "layout": "image_right",
+        "mobile_layout": "content_first",
+        "image": "shopify://shop_images/exercise-stretching.jpg",
+        "heading": "DISCOVER OUR PREMIUM SPORT CLOTHING COLLECTION",
+        "heading_size": "h2",
+        "text": "<p>Discover our premium sport clothing collection designed for peak performance and comfort. From high-intensity workouts to casual athletic wear, each piece is crafted with breathable fabrics and modern designs that move with you. </p><p>Whether you're hitting the gym, running outdoors, or staying active throughout your day, find the perfect fit that combines style with functionality. Engineered for athletes of all levels, our collection keeps you cool, dry, and confident in every activity.</p>",
+        "text_style": "body",
+        "btn_label": "Discover collection",
+        "btn_link": "shopify://collections",
+        "btn_style": "fill",
+        "bg_color": "#ffffff",
+        "content_bg": "#ffffff",
+        "text_color": "#111111",
+        "secondary_text_color": "#111111",
+        "btn_bg": "#ffffff",
+        "btn_text": "#111111",
+        "btn_border": "#111111",
+        "btn_bg_hover": "#111111",
+        "btn_text_hover": "#ffffff",
+        "btn_border_hover": "#111111",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 0,
+        "text_align": "left",
+        "text_align_mobile": "center",
+        "vertical_alignment": "flex-start",
+        "image_ratio": "adapt",
+        "image_radius": 0
+      }
     }
   },
   "order": [
-    "collections_LJ8FtQ"
+    "custom_hero_VVBFQk",
+    "collections_LJ8FtQ",
+    "177460127154f914b1",
+    "two_side_section_wtC7qr",
+    "two_side_section_wm84gw"
   ]
 }

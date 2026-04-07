@@ -11,11 +11,11 @@
 
 <div class="stars flex gap-0.5" role="img" aria-label="{{ stars }} out of 5 stars">
   {%- for star in (1..full_stars) -%}
-    {{ 'star-icon.svg' | inline_asset_content }}
+    {% render 'icon' with 'star-icon' %}
   {%- endfor -%}
 
   {%- for star in (1..empty_stars) -%}
-    {{ 'outline-star-icon.svg' | inline_asset_content }}
+    {% render 'icon' with 'outline-star-icon' %}
   {%- endfor -%}
-  <span class="sr-only">{{-'reviews.out_of_stars' | t: count: stars -}}</span>
+  <span class="sr-only">{{- 'reviews.out_of_stars' | t: count: stars -}}</span>
 </div>

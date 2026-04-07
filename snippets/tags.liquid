@@ -28,19 +28,19 @@
 
 {%- if is_on_sale -%}
   <div class="absolute inline-flex items-center top-6 left-6 bg-white p-2 rounded-sm">
-    {{ 'star-icon.svg' | inline_asset_content }}
+     {% render 'icon' with 'star-icon' %}
     <span class="subtitle">{{ 'products.product.on_sale' | t | escape }}</span>
   </div>
 
 {%- elsif is_best_seller -%}
   <div class="absolute inline-flex items-center top-6 left-6 bg-white p-2 rounded-sm">
-    {{ 'star-icon.svg' | inline_asset_content }}
+     {% render 'icon' with 'star-icon' %}
     <span class="subtitle">{{ 'products.product.best_seller' | t | escape }}</span>
   </div>
 
 {%- elsif is_highly_rated -%}
   <div class="absolute inline-flex items-center top-6 left-6 bg-white p-2 rounded-sm">
-    {{ 'star-icon.svg' | inline_asset_content }}
+    {% render 'icon' with 'star-icon' %}
     <span class="subtitle">{{ 'products.product.highly_rated' | t | escape }}</span>
   </div>
 {%- endif -%}

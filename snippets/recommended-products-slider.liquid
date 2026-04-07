@@ -29,7 +29,7 @@
       aria-label="{{ 'slider.slideshow.next_slideshow' | t }}"
       aria-controls="Slider-{{ section.id }}"
     >
-      {{ 'custom-icon-arrow.svg' | inline_asset_content }}
+      {%- render 'icon' with 'custom-icon-arrow' -%}
     </div>
     <div
       class="swiper-button-prev rounded-full border items-center justify-center rotate-180 absolute top-1/4 -translate-y-1/2"
@@ -37,7 +37,7 @@
       aria-label="{{ 'slider.slideshow.previous_slideshow' | t }}"
       aria-controls="Slider-{{ section.id }}"
     >
-      {{ 'custom-icon-arrow.svg' | inline_asset_content }}
+      {% render 'icon' with 'custom-icon-arrow' %}
     </div>
   </div>
 

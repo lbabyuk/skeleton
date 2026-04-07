@@ -4,6 +4,20 @@
     {% render 'product-card', product: product %}
 {%- endcomment -%}
 
+{% assign reviews = product.metafields.custom.reviews.value %}
+{% assign review_count = reviews.size %}
+{% assign total_stars = 0 %}
+
+{% for review in reviews %}
+  {% assign total_stars = total_stars | plus: review.stars %}
+{% endfor %}
+
+{% if review_count > 0 %}
+  {% assign average_stars = total_stars | divided_by: review_count %}
+{% else %}
+  {% assign average_stars = 0 %}
+{% endif %}
+
 <div class="product-card flex flex-col">
   <a href="{{ product.url }}" class="product-image-link">
     {%- if product.featured_image != blank -%}
@@ -22,6 +36,10 @@
   </a>
 
   <a href="{{ product.url }}" class="product-info flex flex-col gap-2 pt-4">
+    <div class="product-average-rating flex items-center gap-2 mt-4">
+      {% render 'stars', stars: average_stars, label: 'Average rating' %}
+      <span class="subtitle" aria-hidden="true">{{- average_stars | times: 1.0 | round: 1 -}}</span>
+    </div>
     <span class="product-name body hover:underline underline-offset-4">
       {{ product.title | escape }}
     </span>

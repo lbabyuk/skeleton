@@ -34,11 +34,7 @@
       {% render 'breadcrumbs' %}
       {{ content_for_layout }}
     </main>
-
     {% sections 'footer-group' %}
-
-    {% if template contains 'product' %}
       <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
-    {% endif %}
   </body>
 </html>

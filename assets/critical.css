@@ -78,12 +78,14 @@ body {
   font-family: var(--font-primary--family);
   background-color: var(--color-background);
   color: var(--color-foreground);
+  padding-top: calc(var(--spacing) * 21);
 }
 
 .shopify-section {
   --content-width: min(calc(var(--page-width) - var(--page-margin) * 2), calc(100% - var(--page-margin) * 2));
   --content-margin: minmax(var(--page-margin), 1fr);
   --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
+  
 
   position: relative;
   grid-template-columns: var(--content-grid);

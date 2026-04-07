@@ -1,0 +1,378 @@
+{% style %}
+     .section-{{ section.id }} {
+       display: grid;
+       grid-template-columns: 1fr 1fr;
+       padding-top: {{ section.settings.padding_top_mb }}px;
+       padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+       background: {{ section.settings.bg_color }};
+     }
+
+     @media (min-width: 750px) {
+     .section-{{ section.id }} {
+       padding-top: {{ section.settings.padding_top }}px;
+       padding-bottom: {{ section.settings.padding_bottom }}px;
+      display: grid;
+       grid-template-columns: 1fr 1fr;
+     }
+    }
+
+    .section-{{ section.id }}.image-right {
+       flex-direction: row-reverse;
+     }
+   .section-{{ section.id }} .two-side__image{
+      align-self: normal;
+    }
+     .two-side__image,
+     .two-side__content {
+       flex: 1;
+     }
+
+     .two-side-section.flex-end {
+       align-items: end;
+     }
+       .two-side-section.center {
+       align-items: center;
+     }
+       .two-side-section.flex-start {
+       align-items: start;
+     }
+
+    .section-{{ section.id }} .two-side__image img {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+       border-radius: {{ section.settings.image_radius }}px;
+       aspect-ratio: {% case section.settings.image_ratio %}
+       {% when 'square' %}1/1
+       {% when 'portrait' %}3/4
+       {% else %}auto
+       {% endcase %};
+     }
+
+    .section-{{ section.id }} .two-side__content {
+       text-align: {{ section.settings.text_align }};
+       color: {{ section.settings.text_color }};
+       background: {{ section.settings.content_bg }};
+       height: 100%;
+     }
+
+    .section-{{ section.id }} .two-side__heading {
+       margin-bottom: 16px;
+     }
+
+    .section-{{ section.id }} .two-side__text {
+       margin-bottom: 20px;
+       color: {{ section.settings.secondary_text_color }};
+     }
+
+    .section-{{ section.id }} .two-side__button {
+       display: inline-block;
+       transition: all 0.3s ease;
+     }
+    .section-{{ section.id }} .btn--fill {
+       background: {{ section.settings.btn_bg }};
+       color: {{ section.settings.btn_text }};
+       border: 1px solid {{ section.settings.btn_border }};
+       padding: 12px 24px;
+     }
+
+    .section-{{ section.id }} .btn--fill:hover {
+       background: {{ section.settings.btn_bg_hover }};
+       color: {{ section.settings.btn_text_hover }};
+       border-color: {{ section.settings.btn_border_hover }};
+     }
+
+    .section-{{ section.id }} .btn--outline {
+       background: transparent;
+       color: {{ section.settings.btn_text }};
+       border: 1px solid {{ section.settings.btn_border }};
+       padding: 12px 24px;
+     }
+
+    .section-{{ section.id }} .btn--outline:hover {
+       background: {{ section.settings.btn_bg_hover }};
+       color: {{ section.settings.btn_text_hover }};
+     }
+
+    .section-{{ section.id }} .btn--link {
+       background: none;
+       border: none;
+       padding: 0;
+       color: {{ section.settings.btn_text }};
+       text-decoration: underline;
+     }
+
+    .section-{{ section.id }} .btn--link:hover {
+       color: {{ section.settings.btn_text_hover }};
+     }
+
+     @media (max-width: 749px) {
+
+     .section-{{ section.id }} {
+       flex-direction: column;
+     }
+
+     .section-{{ section.id }}.mobile-reverse {
+       flex-direction: column-reverse;
+     }
+
+    .section-{{ section.id }} .two-side__content {
+       text-align: {{ section.settings.text_align_mobile }};
+     }
+
+     .section-{{ section.id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .section-{{ section.id }}.mobile-reverse .two-side__image {
+      order: 2;
+    }
+
+    .section-{{ section.id }}.mobile-reverse .two-side__content {
+      order: 1;
+    }
+
+     }
+     .section-{{ section.id }}.image-right .two-side__image {
+    order: 2;
+  }
+  .section-{{ section.id }}.image-right .two-side__content {
+    order: 1;
+  }
+{% endstyle %}
+
+<div
+  class="two-side-section section-{{ section.id }} {{ section.settings.vertical_alignment }}{%  if section.settings.full_width %} full-width{% endif %}{% if section.settings.layout == 'image_right' %} image-right{% endif %}{% if section.settings.mobile_layout == 'content_first' %} mobile-reverse{% endif %}"
+  id="section-{{ section.id }}"
+>
+  <div class="two-side__image">
+    {% if section.settings.image != blank %}
+      {{
+        section.settings.image
+        | image_url: width: 1600
+        | image_tag:
+          loading: 'lazy',
+          sizes: '(min-width: 750px) 50vw, 100vw',
+          widths: '375,550,750,1100,1500',
+          alt: section.settings.image_alt
+      }}
+    {% endif %}
+  </div>
+
+  <div class="two-side__content p-10">
+    {% if section.settings.heading != blank %}
+      <h2 class="two-side__heading {{ section.settings.heading_size }}">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.text != blank %}
+      <div class="two-side__text {{ section.settings.text_style }}">{{ section.settings.text }}</div>
+    {% endif %}
+
+    {% if section.settings.btn_label != blank %}
+      <a
+        href="{{ section.settings.btn_link }}"
+        class="two-side__button btn--{{ section.settings.btn_style }}"
+      >
+        {{ section.settings.btn_label }}
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Two Side Section",
+  "settings": [
+    { "type": "checkbox", "id": "full_width", "label": "Full width", "default": false },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Desktop layout",
+      "options": [
+        { "value": "image_left", "label": "Image left" },
+        { "value": "image_right", "label": "Image right" }
+      ],
+      "default": "image_left"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile order",
+      "options": [
+        { "value": "image_first", "label": "Image first" },
+        { "value": "content_first", "label": "Content first" }
+      ],
+      "default": "image_first"
+    },
+
+    { "type": "image_picker", "id": "image", "label": "Image" },
+
+    { "type": "text", "id": "heading", "label": "Heading" },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__2.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    {
+      "type": "select",
+      "id": "text_style",
+      "options": [
+        {
+          "value": "body",
+          "label": "Body"
+        },
+        {
+          "value": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "value": "caption-with-letter-spacing",
+          "label": "Caption"
+        }
+      ],
+      "default": "body",
+      "label": "Subheading size"
+    },
+
+    { "type": "text", "id": "btn_label", "label": "Button label" },
+    { "type": "url", "id": "btn_link", "label": "Button link" },
+
+    {
+      "type": "select",
+      "id": "btn_style",
+      "label": "Button style",
+      "options": [
+        { "value": "fill", "label": "Fill" },
+        { "value": "outline", "label": "Outline" },
+        { "value": "link", "label": "Link" }
+      ],
+      "default": "fill"
+    },
+
+    { "type": "color", "id": "bg_color", "label": "Section background" },
+    { "type": "color", "id": "content_bg", "label": "Content background" },
+
+    { "type": "color", "id": "text_color", "label": "Text color" },
+    { "type": "color", "id": "secondary_text_color", "label": "Secondary text color" },
+
+    { "type": "color", "id": "btn_bg", "label": "Button bg" },
+    { "type": "color", "id": "btn_text", "label": "Button text" },
+    { "type": "color", "id": "btn_border", "label": "Button border" },
+
+    { "type": "color", "id": "btn_bg_hover", "label": "Button bg hover" },
+    { "type": "color", "id": "btn_text_hover", "label": "Button text hover" },
+    { "type": "color", "id": "btn_border_hover", "label": "Button border hover" },
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "label": "Padding top desktop",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "label": "Padding bottom desktop",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mb",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "label": "Padding top mobile",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mb",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "label": "Padding bottom mobile",
+      "default": 24
+    },
+
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment desktop",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "text_align_mobile",
+      "label": "Text alignment mobile",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt" },
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" }
+      ],
+      "default": "adapt"
+    },
+
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "label": "Image border radius",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Side Section"
+    }
+  ]
+}
+{% endschema %}
