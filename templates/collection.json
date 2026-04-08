@@ -22,9 +22,9 @@
         "mobile_layout": "image_first",
         "bg_image": "shopify://shop_images/soccer-player-in-penalty-kick-position-drone-view.jpg",
         "centered_image": "shopify://shop_images/soccer-ball-in-grass.jpg",
-        "heading": "",
+        "heading": "PRECISION STARTS HERE",
         "heading_size": "h1",
-        "text": "",
+        "text": "<h6><strong>Train smarter, strike cleaner, and level up your game with every shot.</strong><br/><br/>Whether you're practicing your first penalty or perfecting your top-corner finish, the right setup makes all the difference. Designed for players who want to improve accuracy, control, and confidence, this training essential brings the feel of the pitch right to you.</h6><p>From backyard sessions to serious drills, every touch counts. Build consistency, sharpen your instincts, and take your shot with purpose.<br/></p><p></p><ul><li>Improve shooting accuracy and ball control</li><li>Perfect for solo training or team drills</li><li>Durable design for all playing surfaces</li><li>Suitable for beginners to advanced players<br/></li></ul>",
         "text_style": "body",
         "btn_label": "",
         "btn_link": "",
@@ -46,7 +46,7 @@
         "text_align": "left",
         "text_align_mobile": "center",
         "vertical_alignment": "center",
-        "bg_image_ratio": "adapt",
+        "bg_image_ratio": "square",
         "centered_image_ratio": "adapt",
         "image_radius": 0
       }
