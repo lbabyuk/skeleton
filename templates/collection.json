@@ -44,8 +44,8 @@
         "padding_top_mb": 0,
         "padding_bottom_mb": 0,
         "text_align": "left",
-        "text_align_mobile": "center",
-        "vertical_alignment": "center",
+        "text_align_mobile": "left",
+        "vertical_alignment": "flex-start",
         "bg_image_ratio": "square",
         "centered_image_ratio": "adapt",
         "image_radius": 0
