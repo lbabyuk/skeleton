@@ -38,6 +38,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    perspective: 1200px;
   }
   .section-{{ section.id }} .two-side__bg-image img {
     width: 100%;
@@ -54,12 +55,12 @@
   }
   .two-side__centered-image {
     position: absolute;
-    width: 70%;
+    width: 50%;
     z-index: 2;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 0.5px solid #ccc;
+    /* border: 0.5px solid #ccc; */
   }
   .two-side__centered-image img {
     display: block;
@@ -158,13 +159,44 @@
       text-align: {{ section.settings.text_align_mobile }};
     }
   }
+
+.two-side__centered-image {
+  position: absolute;
+  width: 60%;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  /* border: 0.5px solid #ccc; */
+  
+  /* Initial centering + dynamic variables */
+  transform: translate(calc(-50% + var(--move-x, 0px)), calc(-50% + var(--move-y, 0px))) 
+             rotateX(var(--rotate-x, 0deg)) 
+             rotateY(var(--rotate-y, 0deg));
+
+  /* SLOWER MOTION: 0.8s with a very smooth entry curve */
+  transition: transform 0.8s cubic-bezier(0.15, 0.85, 0.35, 1);
+  will-change: transform;
+  cursor: pointer;
+}
+
+.two-side__centered-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(var(--inner-zoom, 1));
+  /* SLOWER INNER ZOOM: matched to the frame */
+  transition: transform 1.2s cubic-bezier(0.15, 0.85, 0.35, 1);
+}
+
 {% endstyle %}
 
 <div
   class="two-side-section section-{{ section.id }} {{ section.settings.vertical_alignment }}{%  if section.settings.full_width %} full-width{% endif %}{% if section.settings.layout == 'image_right' %} image-right{% endif %}{% if section.settings.mobile_layout == 'content_first' %} mobile-reverse{% endif %}"
   id="section-{{ section.id }}"
 >
-  <div class="two-side__image-container">
+  <div class="two-side__image-container" id="AnimationContainer-{{ section.id }}">
     <div class="two-side__bg-image">
       {% if section.settings.bg_image != blank %}
         {{
@@ -212,6 +244,56 @@
     {% endif %}
   </div>
 </div>
+<script>
+(function() {
+  const initSlowAnimation = () => {
+    const container = document.querySelector('#AnimationContainer-{{ section.id }}');
+    const frame = container?.querySelector('.two-side__centered-image');
+    const img = frame?.querySelector('img');
+
+    if (!container || !frame || !img) return;
+
+    container.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      // Lower multipliers make the motion feel more controlled/less "wild"
+      const moveX = x * 30; 
+      const moveY = y * 30;
+      const rotY = x * 8;
+      const rotX = y * -8;
+
+      frame.style.setProperty('--move-x', `${moveX}px`);
+      frame.style.setProperty('--move-y', `${moveY}px`);
+      frame.style.setProperty('--rotate-y', `${rotY}deg`);
+      frame.style.setProperty('--rotate-x', `${rotX}deg`);
+    });
+
+    container.addEventListener('mouseenter', () => {
+      // Set inner zoom
+      img.style.setProperty('--inner-zoom', '1.15');
+      // Keep transition duration relatively high even on move for that "floaty" feel
+      frame.style.transition = 'transform 0.8s cubic-bezier(0.15, 0.85, 0.35, 1)';
+    });
+
+    container.addEventListener('mouseleave', () => {
+      // Slower reset for a graceful exit
+      frame.style.transition = 'transform 1.2s cubic-bezier(0.15, 0.85, 0.35, 1)';
+      img.style.setProperty('--inner-zoom', '1');
+      frame.style.setProperty('--move-x', '0px');
+      frame.style.setProperty('--move-y', '0px');
+      frame.style.setProperty('--rotate-y', '0deg');
+      frame.style.setProperty('--rotate-x', '0deg');
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', initSlowAnimation);
+  if (window.Shopify && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', initSlowAnimation);
+  }
+})();
+</script>
 
 {% schema %}
 {
