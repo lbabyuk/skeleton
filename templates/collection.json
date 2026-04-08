@@ -12,48 +12,9 @@
     "main": {
       "type": "collection",
       "settings": {}
-    },
-    "section_image_with_text_LzcQky": {
-      "type": "section-image-with-text",
-      "name": "Two images with text",
-      "settings": {
-        "full_width": false,
-        "layout": "image_left",
-        "mobile_layout": "image_first",
-        "bg_image": "shopify://shop_images/soccer-player-in-penalty-kick-position-drone-view.jpg",
-        "centered_image": "shopify://shop_images/soccer-ball-in-grass.jpg",
-        "heading": "PRECISION STARTS HERE",
-        "heading_size": "h1",
-        "text": "<p><strong>Train smarter, strike cleaner, and level up your game with every shot.</strong><br/><br/>Whether you're practicing your first penalty or perfecting your top-corner finish, the right setup makes all the difference. Designed for players who want to improve accuracy, control, and confidence, this training essential brings the feel of the pitch right to you.</p><p>From backyard sessions to serious drills, every touch counts. Build consistency, sharpen your instincts, and take your shot with purpose.<br/></p><ul><li>Improve shooting accuracy and ball control</li><li>Perfect for solo training or team drills</li><li>Durable design for all playing surfaces</li><li>Suitable for beginners to advanced players<br/></li></ul>",
-        "text_style": "body",
-        "btn_label": "",
-        "btn_link": "",
-        "btn_style": "fill",
-        "bg_color": "",
-        "content_bg": "",
-        "text_color": "",
-        "secondary_text_color": "",
-        "btn_bg": "",
-        "btn_text": "",
-        "btn_border": "",
-        "btn_bg_hover": "",
-        "btn_text_hover": "",
-        "btn_border_hover": "",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "padding_top_mb": 0,
-        "padding_bottom_mb": 0,
-        "text_align": "left",
-        "text_align_mobile": "left",
-        "vertical_alignment": "flex-start",
-        "bg_image_ratio": "square",
-        "centered_image_ratio": "adapt",
-        "image_radius": 0
-      }
     }
   },
   "order": [
-    "main",
-    "section_image_with_text_LzcQky"
+    "main"
   ]
 }
