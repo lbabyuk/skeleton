@@ -190,6 +190,44 @@
         "image_ratio": "adapt",
         "image_radius": 0
       }
+    },
+    "section_image_with_text_ae9Vi8": {
+      "type": "section-image-with-text",
+      "name": "Two images with text",
+      "settings": {
+        "full_width": false,
+        "layout": "image_left",
+        "mobile_layout": "image_first",
+        "bg_image": "shopify://shop_images/necklace-earrings-set.jpg",
+        "centered_image": "shopify://shop_images/boho-earrings.jpg",
+        "heading": "FRESH ACCENTS, EFFORTLESS STYLE",
+        "heading_size": "h1",
+        "text": "<p>Add a modern touch to your look with lightweight, easy-to-wear jewelry. The subtle pop of turquoise brings a sense of freshness and individuality to every outfit. Designed for comfort and versatility, these pieces transition seamlessly from day to night, elevating your everyday style with a soft, elegant glow.<br/></p>",
+        "text_style": "body",
+        "btn_label": "Explore Collection",
+        "btn_link": "",
+        "btn_style": "fill",
+        "bg_color": "#ffffff",
+        "content_bg": "#e5e5e5",
+        "text_color": "#141414",
+        "secondary_text_color": "",
+        "btn_bg": "#ffffff",
+        "btn_text": "#141414",
+        "btn_border": "#141414",
+        "btn_bg_hover": "#141414",
+        "btn_text_hover": "#ffffff",
+        "btn_border_hover": "#141414",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 20,
+        "text_align": "left",
+        "text_align_mobile": "left",
+        "vertical_alignment": "center",
+        "bg_image_ratio": "square",
+        "centered_image_ratio": "adapt",
+        "image_radius": 0
+      }
     }
   },
   "order": [
@@ -197,6 +235,7 @@
     "collections_LJ8FtQ",
     "177460127154f914b1",
     "two_side_section_wtC7qr",
-    "two_side_section_wm84gw"
+    "two_side_section_wm84gw",
+    "section_image_with_text_ae9Vi8"
   ]
 }

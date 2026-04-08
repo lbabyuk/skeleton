@@ -389,9 +389,7 @@
                 {%- endif -%}
                 {%- if content_result_list != blank -%}
                   <div class="info__list">
-                    {% for item in content_result_list %}
-                      {{ item }}
-                    {% endfor %}
+                      {{ content_result_list.value}}
                   </div>
                 {%- endif -%}
                 {%- if content_note_icon != blank or content_note_title != blank or content_note_text != blank -%}
