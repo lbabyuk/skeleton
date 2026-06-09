@@ -1,4 +1,4 @@
-
+{%- if section.blocks.size > 0 -%}
   <style>
      {%- for block in section.blocks -%}
      #shopify-section-{{ section.id }} {
@@ -48,7 +48,7 @@
 
                 {{-
                   block.settings.image_desktop
-                  | image_url: width: block.settings.image.width
+                  | image_url: width: block.settings.image_desktop.width
                   | image_tag:
                     sizes: sizes,
                     widths: '200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
@@ -60,28 +60,28 @@
             {%- endif -%}
 
             <div class="prose text-center sm:text-start">
-              {%- if block.settings.subheading != blank -%}
-                <p class="h6">{{ block.settings.subheading }}</p>
+              {%- if block.settings.subheading_text != blank -%}
+                <p class="h6">{{ block.settings.subheading_text }}</p>
               {%- endif -%}
 
-              {%- if block.settings.heading != blank -%}
+              {%- if block.settings.heading_text != blank -%}
                 <h2 class="{{ block.settings.heading_tag }}">
-                  {{ block.settings.heading }}
+                  {{ block.settings.heading_text }}
                 </h2>
               {%- endif -%}
 
-              {%- if block.settings.description != blank -%}
+              {%- if block.settings.description_content != blank -%}
                 <div>
-                  {{- block.settings.description -}}
+                  {{- block.settings.description_content -}}
                 </div>
               {%- endif -%}
 
               {%- if block.settings.list_content != blank
-                or block.settings.list_icon != blank
-                or block.settings.list_title != blank
+                or block.settings.list_icon != blank or block.settings.list_title != blank
               -%}
-                <div class="list__content-list">
-                  <div class="list__content-list--item">
+                <ul class="list__content-list">
+               
+                  <li class="list__content-list--item">
                     {%- if block.settings.list_icon != blank -%}
                       {{
                         block.settings.list_icon
@@ -97,8 +97,9 @@
                         {{- block.settings.list_content -}}
                       {%- endif -%}
                     </div>
-                </div>
-            </div>
+                  </li>
+                  
+                </ul>
               {%- endif -%}
 
               {%- if block.settings.page.content != blank -%}
@@ -121,7 +122,7 @@
                 {{- block.settings.link_text | escape -}}
               </a>
 
-              {% comment %} {%- if block.settings.button_text != blank -%}
+              {%- if block.settings.button_text != blank -%}
                 {% render 'button',
                   content: block.settings.button_text,
                   href: block.settings.button_url,
@@ -129,12 +130,13 @@
                   text_color: block.settings.button_text_color,
                   block: block
                 %}
-              {%- endif -%} {% endcomment %}
+              {%- endif -%}
             </div>
         {% endcase %}
       </image-with-text>
     </div>
   {%- endfor -%}
+ {%- endif -%}
 
 
 {% schema %}
@@ -151,33 +153,33 @@
       "type": "item",
       "name": "Item",
       "settings": [
-        /*{
+        {
           "type": "color_scheme",
           "id": "color_scheme",
-          "label": "t:global.colors.scheme",
+          "label": "colors.scheme",
           "default": "scheme-1"
         },
         {
           "type": "checkbox",
           "id": "separate_section_with_border",
-          "label": "t:global.section.separate_section_with_border",
+          "label": "separate_section_with_border",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "remove_vertical_spacing",
-          "label": "t:global.spacing.remove_vertical_spacing",
+          "label": "remove_vertical_spacing",
           "default": true
-        },*/
+        },
         {
           "type": "inline_richtext",
-          "id": "subheading",
+          "id": "subheading_text",
           "label": "Subheading"
         },
 
         {
           "type": "inline_richtext",
-          "id": "heading",
+          "id": "heading_text",
           "label": "Heading"
         },
         {
@@ -218,10 +220,10 @@
         },
         {
           "type": "richtext",
-          "id": "description",
+          "id": "description_content",
           "label": "Description content"
         },
-       /* {
+        {
           "type": "header",
           "content": "List content"
         },
@@ -230,7 +232,7 @@
           "id": "list_icon",
           "label": "List icon"
         },
-        {
+         {
           "type": "text",
           "id": "list_title",
           "label": "List title"
@@ -239,7 +241,7 @@
           "type": "richtext",
           "id": "list_content",
           "label": "List content"
-        },*/
+        },
         {
           "type": "header",
           "content": "Image settings"
@@ -300,7 +302,7 @@
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button text"
+          "label": "button_text"
         },
         {
           "type": "url",
