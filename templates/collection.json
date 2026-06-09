@@ -18,22 +18,13 @@
       "blocks": {
         "item_JW4wtm": {
           "type": "item",
+          "repeater": "{{ collection.metafields.custom.seo_collection_data.value }}",
           "settings": {
-            "subheading_text": "nfghfghfdgh",
-            "heading_text": "fghdfgh",
-            "heading_tag": "h2",
-            "description_content": "",
-            "reveal_on_scroll": true,
-            "image_position": "start",
-            "link_text": "",
-            "link_url": "",
-            "button_text": "",
-            "button_url": "",
-            "button_background": "",
-            "button_text_color": "",
-            "content_width": "sm",
-            "page": "",
-            "liquid": ""
+            "subheading_text": "{{ block.repeater.item_description.value }}",
+            "heading_text": "{{ block.repeater.image_position.value }}",
+            "description_content": "{{ block.repeater.description | metafield_tag }}",
+            "image_desktop": "{{ block.repeater.image_desktop.value }}",
+            "mobile_image": "{{ block.repeater.image_mobile.value }}"
           }
         }
       },
