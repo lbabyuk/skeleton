@@ -76,31 +76,43 @@
                 </div>
               {%- endif -%}
 
-              {% comment %} {%- if block.settings.list_content != blank
-                or block.settings.list_icon != blank or block.settings.list_title != blank
-              -%}
-                <ul class="list__content-list">
-               
-                  <li class="list__content-list--item">
-                    {%- if block.settings.list_icon != blank -%}
-                      {{
-                        block.settings.list_icon
-                        | image_url: width: 24
-                        | image_tag: loading: 'lazy', width: 24, alt: block.settings.list_icon, class: 'list-icon'
-                      }}
-                    {%- endif -%}
-                    <div class="list__content-wrapper">
-                      {%- if block.settings.list_title != blank -%}
-                        <h3 class="list_title h3">{{- block.settings.list_title -}}</h3>
-                      {%- endif -%}
-                      {%- if block.settings.list_content != blank -%}
-                        {{- block.settings.list_content -}}
-                      {%- endif -%}
-                    </div>
-                  </li>
-                  
-                </ul>
-              {%- endif -%} {% endcomment %}
+          {%- if 
+  block.settings.list_title_1 != blank or block.settings.list_content_1 != blank or block.settings.list_icon_1 != blank or
+  block.settings.list_title_2 != blank or block.settings.list_content_2 != blank or block.settings.list_icon_2 != blank or
+  block.settings.list_title_3 != blank or block.settings.list_content_3 != blank or block.settings.list_icon_3 != blank
+-%}
+
+{%- for i in (1..3) -%}
+  {%- assign icon_key = 'list_icon_' | append: i -%}
+  {%- assign title_key = 'list_title_' | append: i -%}
+  {%- assign content_key = 'list_content_' | append: i -%}
+
+  {%- assign icon = block.settings[icon_key] -%}
+  {%- assign title = block.settings[title_key] -%}
+  {%- assign content = block.settings[content_key] -%}
+
+  {%- if icon != blank or title != blank or content != blank -%}
+    <li class="list__content-list--item">
+
+      {%- if icon != blank -%}
+        {{ icon | image_url: width: 24 | image_tag: loading: 'lazy', width: 24, class: 'list-icon' }}
+      {%- endif -%}
+
+      <div class="list__content-wrapper">
+        {%- if title != blank -%}
+          <h3 class="list_title h3">{{ title }}</h3>
+        {%- endif -%}
+
+        {%- if content != blank -%}
+          {{ content }}
+        {%- endif -%}
+      </div>
+
+    </li>
+  {%- endif -%}
+{%- endfor -%}
+
+{%- endif -%}
 
               {%- if block.settings.page.content != blank -%}
                 <div>
@@ -182,7 +194,7 @@
           "id": "heading_text",
           "label": "Heading"
         },
-        {
+       /*{
           "type": "select",
           "id": "heading_tag",
           "label": "Heading tag style",
@@ -213,7 +225,7 @@
             }
           ],
           "default": "h2"
-        },
+        },*/
         {
           "type": "header",
           "content": "Description"
@@ -223,25 +235,55 @@
           "id": "description_content",
           "label": "Description content"
         },
-       /* {
+        {
           "type": "header",
           "content": "List content"
         },
         {
           "type": "image_picker",
-          "id": "list_icon",
-          "label": "List icon"
+          "id": "list_icon_1",
+          "label": "List icon 1"
         },
          {
           "type": "text",
-          "id": "list_title",
-          "label": "List title"
+          "id": "list_title_1",
+          "label": "List title 1"
         },
         {
           "type": "richtext",
-          "id": "list_content",
-          "label": "List content"
-        },*/
+          "id": "list_content_1",
+          "label": "List content 1"
+        },
+         {
+          "type": "image_picker",
+          "id": "list_icon_2",
+          "label": "List icon 2"
+        },
+         {
+          "type": "text",
+          "id": "list_title_2",
+          "label": "List title 2"
+        },
+        {
+          "type": "richtext",
+          "id": "list_content_2",
+          "label": "List content 2"
+        },
+         {
+          "type": "image_picker",
+          "id": "list_icon_3",
+          "label": "List icon 3"
+        },
+         {
+          "type": "text",
+          "id": "list_title_3",
+          "label": "List title 3"
+        },
+        {
+          "type": "richtext",
+          "id": "list_content_3",
+          "label": "List content 3"
+        },
         {
           "type": "header",
           "content": "Image settings"
