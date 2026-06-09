@@ -18,13 +18,10 @@
       "blocks": {
         "item_JW4wtm": {
           "type": "item",
-          "repeater": "{{ collection.metafields.custom.seo_collection_data.value }}",
           "settings": {
-            "subheading_text": "{{ block.repeater.item_description.value }}",
-            "heading_text": "{{ block.repeater.image_position.value }}",
-            "description_content": "{{ block.repeater.description | metafield_tag }}",
-            "image_desktop": "{{ block.repeater.image_desktop.value }}",
-            "mobile_image": "{{ block.repeater.image_mobile.value }}"
+            "subheading_text": "",
+            "heading_text": "",
+            "description_content": ""
           }
         }
       },
