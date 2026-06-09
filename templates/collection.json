@@ -16,11 +16,11 @@
     "seo_section_D9QYFe": {
       "type": "seo-section",
       "blocks": {
-        "item_NKz7Nx": {
+        "item_JW4wtm": {
           "type": "item",
           "settings": {
-            "subheading_text": "",
-            "heading_text": "",
+            "subheading_text": "nfghfghfdgh",
+            "heading_text": "fghdfgh",
             "heading_tag": "h2",
             "description_content": "",
             "reveal_on_scroll": true,
@@ -38,7 +38,7 @@
         }
       },
       "block_order": [
-        "item_NKz7Nx"
+        "item_JW4wtm"
       ],
       "name": "SEO image with text",
       "settings": {}
