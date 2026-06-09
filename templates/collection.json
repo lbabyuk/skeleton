@@ -34,7 +34,11 @@
             "list_content_3": "{{ block.repeater.list_content_3 | metafield_tag }}",
             "image_desktop": "{{ block.repeater.image_desktop.value }}",
             "image_mobile": "{{ block.repeater.image_mobile.value }}",
+            "image_position": "start",
             "link_text": "{{ block.repeater.info.value }}",
+            "link_url": "",
+            "button_text": "",
+            "button_url": "",
             "page": "{{ block.repeater.page.value }}"
           }
         }
@@ -48,10 +52,47 @@
         "button_text_color": "",
         "content_width": "sm"
       }
+    },
+    "seo_section_X4XDbz": {
+      "type": "seo-section",
+      "blocks": {
+        "item_bFMfqp": {
+          "type": "item",
+          "repeater": "{{ collection.metafields.custom.seo_image_with_text_bottom.value }}",
+          "settings": {
+            "subheading_text": "{{ block.repeater.subheading_text | metafield_tag }}",
+            "heading_text": "{{ block.repeater.heading_text | metafield_tag }}",
+            "description_content": "{{ block.repeater.description_content | metafield_tag }}",
+            "list_icon_1": "{{ block.repeater.list_icon_3.value }}",
+            "list_title_1": "{{ block.repeater.image_position.value }}",
+            "list_content_1": "{{ block.repeater.list_content_second | metafield_tag }}",
+            "list_icon_2": "{{ block.repeater.list_icon_first.value }}",
+            "list_title_2": "{{ block.repeater.link_text.value }}",
+            "list_content_2": "{{ block.repeater.list_content_first | metafield_tag }}",
+            "list_icon_3": "{{ block.repeater.list_icon_second.value }}",
+            "list_title_3": "{{ block.repeater.button_text.value }}",
+            "list_content_3": "{{ block.repeater.list_content_3 | metafield_tag }}",
+            "image_desktop": "{{ block.repeater.image_desktop.value }}",
+            "image_mobile": "{{ block.repeater.image_mobile.value }}",
+            "link_text": "{{ block.repeater.info.value }}",
+            "page": "{{ block.repeater.page.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "item_bFMfqp"
+      ],
+      "name": "SEO PLP image with text",
+      "settings": {
+        "button_background": "",
+        "button_text_color": "",
+        "content_width": "sm"
+      }
     }
   },
   "order": [
     "main",
-    "seo_section_D9QYFe"
+    "seo_section_D9QYFe",
+    "seo_section_X4XDbz"
   ]
 }
