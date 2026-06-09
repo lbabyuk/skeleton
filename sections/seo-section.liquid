@@ -76,7 +76,7 @@
                 </div>
               {%- endif -%}
 
-              {%- if block.settings.list_content != blank
+              {% comment %} {%- if block.settings.list_content != blank
                 or block.settings.list_icon != blank or block.settings.list_title != blank
               -%}
                 <ul class="list__content-list">
@@ -100,7 +100,7 @@
                   </li>
                   
                 </ul>
-              {%- endif -%}
+              {%- endif -%} {% endcomment %}
 
               {%- if block.settings.page.content != blank -%}
                 <div>
@@ -223,7 +223,7 @@
           "id": "description_content",
           "label": "Description content"
         },
-        {
+        /*{
           "type": "header",
           "content": "List content"
         },
@@ -241,7 +241,7 @@
           "type": "richtext",
           "id": "list_content",
           "label": "List content"
-        },
+        },*/
         {
           "type": "header",
           "content": "Image settings"
