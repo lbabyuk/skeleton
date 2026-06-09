@@ -19,30 +19,6 @@
         "item_NNnn3f": {
           "type": "item",
           "settings": {
-            "remove_vertical_spacing": true,
-            "subheading_text": "",
-            "heading_text": "",
-            "heading_tag": "h2",
-            "description_content": "",
-            "list_title": "",
-            "list_content": "",
-            "reveal_on_scroll": true,
-            "image_position": "start",
-            "link_text": "",
-            "link_url": "",
-            "button_text": "",
-            "button_url": "",
-            "button_background": "",
-            "button_text_color": "",
-            "content_width": "sm",
-            "page": "",
-            "liquid": ""
-          }
-        },
-        "item_wchjaX": {
-          "type": "item",
-          "settings": {
-            "remove_vertical_spacing": true,
             "subheading_text": "",
             "heading_text": "",
             "heading_tag": "h2",
@@ -64,14 +40,10 @@
         }
       },
       "block_order": [
-        "item_NNnn3f",
-        "item_wchjaX"
+        "item_NNnn3f"
       ],
       "name": "SEO image with text",
-      "settings": {
-        "separate_section_with_border": false,
-        "image_position": "start"
-      }
+      "settings": {}
     }
   },
   "order": [
