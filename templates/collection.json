@@ -13,10 +13,10 @@
       "type": "collection",
       "settings": {}
     },
-    "seo_section_dHjLQY": {
+    "seo_section_D9QYFe": {
       "type": "seo-section",
       "blocks": {
-        "item_QUhrAr": {
+        "item_NKz7Nx": {
           "type": "item",
           "settings": {
             "subheading_text": "",
@@ -38,7 +38,7 @@
         }
       },
       "block_order": [
-        "item_QUhrAr"
+        "item_NKz7Nx"
       ],
       "name": "SEO image with text",
       "settings": {}
@@ -46,6 +46,6 @@
   },
   "order": [
     "main",
-    "seo_section_dHjLQY"
+    "seo_section_D9QYFe"
   ]
 }
