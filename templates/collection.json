@@ -16,7 +16,7 @@
     "seo_section_dHjLQY": {
       "type": "seo-section",
       "blocks": {
-        "item_NNnn3f": {
+        "item_QUhrAr": {
           "type": "item",
           "settings": {
             "subheading_text": "",
@@ -40,7 +40,7 @@
         }
       },
       "block_order": [
-        "item_NNnn3f"
+        "item_QUhrAr"
       ],
       "name": "SEO image with text",
       "settings": {}
