@@ -1,80 +1,59 @@
-{%- assign seo_items = collection.metafields.custom.seo_data.value -%}
 
-{%- if seo_items != blank -%}
-  {%- comment -%} 
-    ========================================================================
-    ВАРИАНТ 1: Дані тягнуться ДИНАМІЧНО з метаполів (якщо вони заповнені)
-    ========================================================================
-  {%- endcomment -%}
-  {%- for item in seo_items -%}
-    <div class="section-spacing color-scheme {% if section.settings.separate_section_with_border %}bordered-section{% endif %}">
-      <image-with-text class="image-with-text {% if section.settings.image_position == 'end' %}image-with-text--reverse{% endif %}">
-        
-        {%- if item.image != blank -%}
-          <picture>
-            {%- assign sizes = '(max-width: 699px) 100vw, 50vw' -%}
-            {%- if item.mobile_image != blank -%}
-              <source media="(max-width: 699px)" srcset="{{ item.mobile_image | image_url: width: '400x' }} 400w, {{ item.mobile_image | image_url: width: '600x' }} 600w" width="{{ item.mobile_image.width }}" height="{{ item.mobile_image.height }}">
-            {%- endif -%}
-            {{- item.image | image_url: width: item.image.width | image_tag: sizes: sizes, widths: '400,600,800,1000,1200,1400', reveal-on-scroll: true -}}
-          </picture>
-        {%- else -%}
-          {{- 'image' | placeholder_svg_tag: 'placeholder' -}}
-        {%- endif -%}
-
-        <div class="prose text-center sm:text-start">
-          {%- if item.heading != blank -%}
-            <h2 class="h2">{{ item.heading }}</h2>
-          {%- endif -%}
-
-          {%- if item.description != blank -%}
-            <div>{{ item.description | newline_to_br }}</div>
-          {%- endif -%}
-
-          {%- assign list_items = item.list.value -%}
-          {%- if list_items != blank -%}
-            <ul class="list__content-list">
-              {%- for list_item in list_items -%}
-                <li class="list__content-list--item">
-                  {%- if list_item.list_icon != blank -%}
-                    {{ list_item.list_icon | image_url: width: 24 | image_tag: loading: 'lazy', width: 24, class: 'list-icon' }}
-                  {%- endif -%}
-                  <div class="list__content-wrapper">
-                    {%- if list_item.list_title != blank -%}
-                      <h3 class="list_title h3">{{- list_item.list_title | newline_to_br -}}</h3>
-                    {%- endif -%}
-                    {%- if list_item.list_description != blank -%}
-                      <div class="list_description">{{- list_item.list_description | newline_to_br -}}</div>
-                    {%- endif -%}
-                  </div>
-                </li>
-              {%- endfor -%}
-            </ul>
-          {%- endif -%}
-        </div>
-
-      </image-with-text>
-    </div>
-  {%- endfor -%}
-
-{%- else -%}
-  {%- comment -%} 
-    ========================================================================
-    ВАРИАНТ 2: Метаполів немає -> Працюють СТАНДАРТНІ БЛОКИ з кастомайзера
-    ========================================================================
-  {%- endcomment -%}
+  <style>
+     {%- for block in section.blocks -%}
+     #shopify-section-{{ section.id }} {
+       --image-with-text-content-max-width: {% if block.settings.content_width == 'sm' %}430px{% elsif block.settings.content_width == 'md' %}780px{% else %}100%{% endif %};
+     }
+     {%- endfor -%}
+     #shopify-section-{{ section.id }} ul li {
+       list-style-type: none;
+       padding-inline-start: 0;
+    }
+    #shopify-section-{{ section.id }} .list__content-wrapper {
+      margin: 0 !important;
+    }
+    #shopify-section-{{ section.id }} .list__content-wrapper p, #shopify-section-{{ section.id }} .list__content-wrapper h3 {
+      margin: 0 !important;
+    }
+    #shopify-section-{{ section.id }} .list__content-list--item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
+    }
+  </style>
   {%- for block in section.blocks -%}
-    <div class="{% unless block.settings.remove_vertical_spacing %}section-spacing{% endunless %} color-scheme color-scheme--{{ block.settings.color_scheme.id }} {% if block.settings.separate_section_with_border %}bordered-section{% endif %}" {{ block.shopify_attributes }}>
+    {%- assign color_scheme_hash = block.settings.color_scheme.settings.background_gradient
+      | default: block.settings.color_scheme.settings.background
+      | md5
+    -%}
+  {%- endfor -%}
+  {%- for block in section.blocks -%}
+    <div class="{% unless block.settings.remove_vertical_spacing %}section-spacing{% endunless %} color-scheme color-scheme--{{ block.settings.color_scheme.id }} color-scheme--bg-{{ color_scheme_hash }} {% if block.settings.separate_section_with_border %}bordered-section{% endif %}">
       <image-with-text class="image-with-text {% if block.settings.image_position == 'end' %}image-with-text--reverse{% endif %}">
         {%- case block.type -%}
           {%- when 'item' -%}
-            {%- if block.settings.image != blank -%}
+            {%- if block.settings.image_desktop != blank -%}
               <picture>
                 {%- assign sizes = '(max-width: 699px) 100vw, 50vw' -%}
+
                 {%- if block.settings.mobile_image != blank -%}
-                  <source media="(max-width: 699px)" srcset="{{ block.settings.mobile_image | image_url: width: '400x' }} 400w, {{ block.settings.mobile_image | image_url: width: '600x' }} 600w" width="{{ block.settings.mobile_image.width }}" height="{{ block.settings.mobile_image.height }}">
+                  <source
+                    media="(max-width: 699px)"
+                    srcset="{{ block.settings.mobile_image | image_url: width: '400x' }} 400w, {{ block.settings.mobile_image | image_url: width: '600x' }} 600w, {{ block.settings.mobile_image | image_url: width: '800x' }} 800w, {{ block.settings.mobile_image | image_url: width: '1000x' }} 1000w"
+                    width="{{ block.settings.mobile_image.width }}"
+                    height="{{ block.settings.mobile_image.height }}"
+                  >
                 {%- endif -%}
-                {{- block.settings.image | image_url: width: block.settings.image.width | image_tag: sizes: sizes, widths: '400,600,800,1000,1200', reveal-on-scroll: block.settings.reveal_on_scroll -}}
+
+                {{-
+                  block.settings.image_desktop
+                  | image_url: width: block.settings.image.width
+                  | image_tag:
+                    sizes: sizes,
+                    widths: '200,300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200',
+                    reveal-on-scroll: block.settings.reveal_on_scroll
+                -}}
               </picture>
             {%- else -%}
               {{- 'image' | placeholder_svg_tag: 'placeholder' -}}
@@ -86,18 +65,29 @@
               {%- endif -%}
 
               {%- if block.settings.heading_text != blank -%}
-                <h2 class="{{ block.settings.heading_tag }}">{{ block.settings.heading_text }}</h2>
+                <h2 class="{{ block.settings.heading_tag }}">
+                  {{ block.settings.heading_text }}
+                </h2>
               {%- endif -%}
 
               {%- if block.settings.description_content != blank -%}
-                <div>{{ block.settings.description_content }}</div>
+                <div>
+                  {{- block.settings.description_content -}}
+                </div>
               {%- endif -%}
 
-              {%- if block.settings.list_content != blank or block.settings.list_icon != blank or block.settings.list_title != blank -%}
+              {%- if block.settings.list_content != blank
+                or block.settings.list_icon != blank
+                or block.settings.list_title != blank
+              -%}
                 <ul class="list__content-list">
                   <li class="list__content-list--item">
                     {%- if block.settings.list_icon != blank -%}
-                      {{ block.settings.list_icon | image_url: width: 24 | image_tag: loading: 'lazy', width: 24, class: 'list-icon' }}
+                      {{
+                        block.settings.list_icon
+                        | image_url: width: 24
+                        | image_tag: loading: 'lazy', width: 24, alt: block.settings.list_icon, class: 'list-icon'
+                      }}
                     {%- endif -%}
                     <div class="list__content-wrapper">
                       {%- if block.settings.list_title != blank -%}
@@ -112,28 +102,40 @@
               {%- endif -%}
 
               {%- if block.settings.page.content != blank -%}
-                <div>{{ block.settings.page.content }}</div>
+                <div>
+                  {{- block.settings.page.content -}}
+                </div>
               {%- endif -%}
 
               {%- if block.settings.liquid != blank -%}
-                <div>{{ block.settings.liquid }}</div>
+                <div>
+                  {{- block.settings.liquid -}}
+                </div>
               {%- endif -%}
-              
-              {%- if block.settings.link_text != blank -%}
-                <a {% if block.settings.link_url %}href="{{ block.settings.link_url }}"{% endif %} class="link">
-                  {{- block.settings.link_text | escape -}}
-                </a>
-              {%- endif -%}
+              <a
+                {% if block.settings.link_url %}
+                  href="{{ block.settings.link_url }}"
+                {% endif %}
+                class="link"
+              >
+                {{- block.settings.link_text | escape -}}
+              </a>
 
               {%- if block.settings.button_text != blank -%}
-                {% render 'button', content: block.settings.button_text, href: block.settings.button_url, background: block.settings.button_background, text_color: block.settings.button_text_color, block: block %}
+                {% render 'button',
+                  content: block.settings.button_text,
+                  href: block.settings.button_url,
+                  background: block.settings.button_background,
+                  text_color: block.settings.button_text_color,
+                  block: block
+                %}
               {%- endif -%}
             </div>
         {% endcase %}
       </image-with-text>
     </div>
   {%- endfor -%}
-{%- endif -%}
+
 
 {% schema %}
 {
@@ -143,44 +145,36 @@
   "disabled_on": {
     "groups": ["header", "custom.overlay"]
   },
-  "settings": [
-    {
-      "type": "paragraph",
-      "content": "💡 ПРИМІТКА: Якщо у поточної колекції заповнені метаполя (custom.seo_data), блоки нижче ігноруватимуться, а дані підтягнуться автоматично."
-    },
-    {
-      "type": "checkbox",
-      "id": "separate_section_with_border",
-      "label": "Separate section with border",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "image_position",
-      "label": "Global Image position (For Metafields)",
-      "options": [
-        { "value": "start", "label": "Left" },
-        { "value": "end", "label": "Right" }
-      ],
-      "default": "start"
-    }
-  ],
+  "settings": [],
   "blocks": [
     {
       "type": "item",
       "name": "Item",
       "settings": [
         {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:global.colors.scheme",
+          "default": "scheme-1"
+        },
+        {
+          "type": "checkbox",
+          "id": "separate_section_with_border",
+          "label": "t:global.section.separate_section_with_border",
+          "default": true
+        },
+        {
           "type": "checkbox",
           "id": "remove_vertical_spacing",
-          "label": "Remove vertical spacing",
-          "default": false
+          "label": "t:global.spacing.remove_vertical_spacing",
+          "default": true
         },
         {
           "type": "inline_richtext",
           "id": "subheading_text",
           "label": "Subheading"
         },
+
         {
           "type": "inline_richtext",
           "id": "heading_text",
@@ -191,22 +185,46 @@
           "id": "heading_tag",
           "label": "Heading tag style",
           "options": [
-            { "value": "h1", "label": "H1" },
-            { "value": "h2", "label": "H2" },
-            { "value": "h3", "label": "H3" },
-            { "value": "h4", "label": "H4" },
-            { "value": "h5", "label": "H5" },
-            { "value": "h6", "label": "H6" }
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            }
           ],
           "default": "h2"
         },
-        { "type": "header", "content": "Description" },
+        {
+          "type": "header",
+          "content": "Description"
+        },
         {
           "type": "richtext",
           "id": "description_content",
           "label": "Description content"
         },
-        { "type": "header", "content": "List content" },
+        {
+          "type": "header",
+          "content": "List content"
+        },
         {
           "type": "image_picker",
           "id": "list_icon",
@@ -222,21 +240,26 @@
           "id": "list_content",
           "label": "List content"
         },
-        { "type": "header", "content": "Image settings" },
+        {
+          "type": "header",
+          "content": "Image settings"
+        },
         {
           "type": "image_picker",
-          "id": "image",
-          "label": "Image(desktop)"
+          "id": "image_desktop",
+          "label": "Image(desktop)",
+          "info": "t:sections.image_with_text.image_size_recommendation"
         },
         {
           "type": "image_picker",
           "id": "mobile_image",
-          "label": "Image(mobile)"
+          "label": "Image(mobile)",
+          "info": "t:sections.image_with_text.mobile_image_size_recommendation"
         },
         {
           "type": "checkbox",
           "id": "reveal_on_scroll",
-          "label": "Reveal image on scroll",
+          "label": "t:global.animation.reveal_image_on_scroll",
           "default": true
         },
         {
@@ -244,32 +267,87 @@
           "id": "image_position",
           "label": "Image position",
           "options": [
-            { "value": "start", "label": "Left" },
-            { "value": "end", "label": "Right" }
+            {
+              "value": "start",
+              "label": "Left"
+            },
+            {
+              "value": "end",
+              "label": "Right"
+            }
           ],
           "default": "start"
         },
-        { "type": "header", "content": "Link Settings" },
-        { "type": "text", "id": "link_text", "label": "Link text" },
-        { "type": "url", "id": "link_url", "label": "Link url" },
-        { "type": "header", "content": "Button settings" },
-        { "type": "text", "id": "button_text", "label": "Button label" },
-        { "type": "url", "id": "button_url", "label": "Button link" },
-        { "type": "color", "id": "button_background", "label": "Button background" },
-        { "type": "color", "id": "button_text_color", "label": "Button text color" },
+
+        {
+          "type": "header",
+          "content": "Link Settings"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "link url"
+        },
+        {
+          "type": "header",
+          "content": "Button settings"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "Button background color"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text color"
+        },
+
         {
           "type": "select",
           "id": "content_width",
           "label": "Content width",
           "options": [
-            { "value": "sm", "label": "Small" },
-            { "value": "md", "label": "Medium" },
-            { "value": "lg", "label": "Large" }
+            {
+              "value": "sm",
+              "label": "Small"
+            },
+            {
+              "value": "md",
+              "label": "Medium"
+            },
+            {
+              "value": "lg",
+              "label": "Large"
+            }
           ],
           "default": "sm"
         },
-        { "type": "page", "id": "page", "label": "Page" },
-        { "type": "liquid", "id": "liquid", "label": "Liquid" }
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Page"
+        },
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "Liquid"
+        }
       ]
     }
   ],
@@ -277,7 +355,9 @@
     {
       "name": "SEO image with text",
       "blocks": [
-        { "type": "item" }
+        {
+          "type": "item"
+        }
       ]
     }
   ]
