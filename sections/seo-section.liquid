@@ -37,12 +37,12 @@
               <picture>
                 {%- assign sizes = '(max-width: 699px) 100vw, 50vw' -%}
 
-                {%- if block.settings.mobile_image != blank -%}
+                {%- if block.settings.image_mobile != blank -%}
                   <source
                     media="(max-width: 699px)"
-                    srcset="{{ block.settings.mobile_image | image_url: width: '400x' }} 400w, {{ block.settings.mobile_image | image_url: width: '600x' }} 600w, {{ block.settings.mobile_image | image_url: width: '800x' }} 800w, {{ block.settings.mobile_image | image_url: width: '1000x' }} 1000w"
-                    width="{{ block.settings.mobile_image.width }}"
-                    height="{{ block.settings.mobile_image.height }}"
+                    srcset="{{ block.settings.image_mobile | image_url: width: '400x' }} 400w, {{ block.settings.image_mobile | image_url: width: '600x' }} 600w, {{ block.settings.image_mobile | image_url: width: '800x' }} 800w, {{ block.settings.image_mobile | image_url: width: '1000x' }} 1000w"
+                    width="{{ block.settings.image_mobile.width }}"
+                    height="{{ block.settings.image_mobile.height }}"
                   >
                 {%- endif -%}
 
@@ -254,7 +254,7 @@
         },
         {
           "type": "image_picker",
-          "id": "mobile_image",
+          "id": "image_mobile",
           "label": "Image(mobile)",
           
         },
