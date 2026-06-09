@@ -15,8 +15,39 @@
     },
     "seo_section_D9QYFe": {
       "type": "seo-section",
+      "blocks": {
+        "item_KmCYz7": {
+          "type": "item",
+          "repeater": "{{ collection.metafields.custom.seo_image_with_text_top.value }}",
+          "settings": {
+            "subheading_text": "",
+            "heading_text": "{{ block.repeater.heading_text | metafield_tag }}",
+            "description_content": "{{ block.repeater.description_content | metafield_tag }}",
+            "list_icon_1": "{{ block.repeater.list_icon_3.value }}",
+            "list_title_1": "",
+            "list_content_1": "{{ block.repeater.list_content_first | metafield_tag }}",
+            "list_icon_2": "{{ block.repeater.list_icon_first.value }}",
+            "list_title_2": "{{ block.repeater.link_text.value }}",
+            "list_content_2": "{{ block.repeater.list_content_first | metafield_tag }}",
+            "list_icon_3": "{{ block.repeater.list_icon_second.value }}",
+            "list_title_3": "{{ block.repeater.button_text.value }}",
+            "list_content_3": "{{ block.repeater.list_content_3 | metafield_tag }}",
+            "image_desktop": "{{ block.repeater.image_desktop.value }}",
+            "image_mobile": "{{ block.repeater.image_mobile.value }}",
+            "link_text": "{{ block.repeater.info.value }}",
+            "page": "{{ block.repeater.page.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "item_KmCYz7"
+      ],
       "name": "SEO image with text",
-      "settings": {}
+      "settings": {
+        "button_background": "",
+        "button_text_color": "",
+        "content_width": "sm"
+      }
     }
   },
   "order": [
