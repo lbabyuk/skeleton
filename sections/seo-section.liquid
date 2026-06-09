@@ -60,19 +60,19 @@
             {%- endif -%}
 
             <div class="prose text-center sm:text-start">
-              {%- if block.settings.subheading_text != blank -%}
-                <p class="h6">{{ block.settings.subheading_text }}</p>
+              {%- if block.settings.subheading != blank -%}
+                <p class="h6">{{ block.settings.subheading }}</p>
               {%- endif -%}
 
-              {%- if block.settings.heading_text != blank -%}
+              {%- if block.settings.heading != blank -%}
                 <h2 class="{{ block.settings.heading_tag }}">
-                  {{ block.settings.heading_text }}
+                  {{ block.settings.heading }}
                 </h2>
               {%- endif -%}
 
-              {%- if block.settings.description_content != blank -%}
+              {%- if block.settings.description != blank -%}
                 <div>
-                  {{- block.settings.description_content -}}
+                  {{- block.settings.description -}}
                 </div>
               {%- endif -%}
 
@@ -171,13 +171,13 @@
         },*/
         {
           "type": "inline_richtext",
-          "id": "subheading_text",
+          "id": "subheading",
           "label": "Subheading"
         },
 
         {
           "type": "inline_richtext",
-          "id": "heading_text",
+          "id": "heading",
           "label": "Heading"
         },
         {
@@ -218,7 +218,7 @@
         },
         {
           "type": "richtext",
-          "id": "description_content",
+          "id": "description",
           "label": "Description content"
         },
        /* {
