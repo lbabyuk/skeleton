@@ -15,23 +15,6 @@
     },
     "seo_section_D9QYFe": {
       "type": "seo-section",
-      "blocks": {
-        "item_FmCbPW": {
-          "type": "item",
-          "repeater": "{{ collection.metafields.custom.seo_image_with_text_top.value }}",
-          "settings": {
-            "subheading_text": "{{ block.repeater.subheading_text | metafield_tag }}",
-            "heading_text": "{{ block.repeater.heading_text | metafield_tag }}",
-            "description_content": "{{ block.repeater.description_content | metafield_tag }}",
-            "image_desktop": "{{ block.repeater.image_desktop.value }}",
-            "image_mobile": "{{ block.repeater.image_mobile.value }}",
-            "link_text": "{{ block.repeater.image_position.value }}"
-          }
-        }
-      },
-      "block_order": [
-        "item_FmCbPW"
-      ],
       "name": "SEO image with text",
       "settings": {}
     }
