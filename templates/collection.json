@@ -18,13 +18,21 @@
       "blocks": {
         "item_JW4wtm": {
           "type": "item",
-          "repeater": "{{ collection.metafields.custom.seo_image_with_text_top.value }}",
           "settings": {
-            "subheading_text": "{{ block.repeater.item_description.value }}",
-            "heading_text": "{{ block.repeater.image_position.value }}",
-            "description_content": "{{ block.repeater.description_content | metafield_tag }}",
-            "image_desktop": "{{ block.repeater.image_desktop.value }}",
-            "image_mobile": "{{ block.repeater.image_mobile.value }}"
+            "subheading_text": "",
+            "heading_text": "",
+            "description_content": "",
+            "reveal_on_scroll": true,
+            "image_position": "start",
+            "link_text": "",
+            "link_url": "",
+            "button_text": "",
+            "button_url": "",
+            "button_background": "",
+            "button_text_color": "",
+            "content_width": "sm",
+            "page": "",
+            "liquid": ""
           }
         }
       },
