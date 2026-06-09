@@ -16,7 +16,7 @@
     "seo_section_D9QYFe": {
       "type": "seo-section",
       "blocks": {
-        "item_JW4wtm": {
+        "item_FmCbPW": {
           "type": "item",
           "repeater": "{{ collection.metafields.custom.seo_image_with_text_top.value }}",
           "settings": {
@@ -30,7 +30,7 @@
         }
       },
       "block_order": [
-        "item_JW4wtm"
+        "item_FmCbPW"
       ],
       "name": "SEO image with text",
       "settings": {}
