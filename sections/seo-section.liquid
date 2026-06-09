@@ -80,8 +80,8 @@
                 or block.settings.list_icon != blank
                 or block.settings.list_title != blank
               -%}
-                <ul class="list__content-list">
-                  <li class="list__content-list--item">
+                <div class="list__content-list">
+                  <div class="list__content-list--item">
                     {%- if block.settings.list_icon != blank -%}
                       {{
                         block.settings.list_icon
@@ -97,8 +97,8 @@
                         {{- block.settings.list_content -}}
                       {%- endif -%}
                     </div>
-                  </li>
-                </ul>
+                </div>
+            </div>
               {%- endif -%}
 
               {%- if block.settings.page.content != blank -%}
