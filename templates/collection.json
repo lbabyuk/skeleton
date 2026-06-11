@@ -56,7 +56,27 @@
     "seo_section_X4XDbz": {
       "type": "seo-section",
       "blocks": {
-        "item_bFMfqp": {
+        "item_QibgG9": {
+          "type": "item",
+          "settings": {
+            "subheading_text": "",
+            "heading_text": "",
+            "description_content": "",
+            "list_title_1": "",
+            "list_content_1": "",
+            "list_title_2": "",
+            "list_content_2": "",
+            "list_title_3": "",
+            "list_content_3": "",
+            "image_position": "start",
+            "link_text": "",
+            "link_url": "",
+            "button_text": "",
+            "button_url": "",
+            "page": ""
+          }
+        },
+        "item_QiKe3p": {
           "type": "item",
           "repeater": "{{ collection.metafields.custom.seo_image_with_text_bottom.value }}",
           "settings": {
@@ -80,7 +100,8 @@
         }
       },
       "block_order": [
-        "item_bFMfqp"
+        "item_QibgG9",
+        "item_QiKe3p"
       ],
       "name": "SEO PLP image with text",
       "settings": {
@@ -88,11 +109,47 @@
         "button_text_color": "",
         "content_width": "sm"
       }
+    },
+    "two_side_section_hAXBeQ": {
+      "type": "two-side-section",
+      "name": "Two Side Section",
+      "settings": {
+        "full_width": false,
+        "layout": "image_left",
+        "mobile_layout": "image_first",
+        "heading": "",
+        "heading_size": "h1",
+        "text": "",
+        "text_style": "body",
+        "btn_label": "",
+        "btn_link": "",
+        "btn_style": "fill",
+        "bg_color": "",
+        "content_bg": "",
+        "text_color": "",
+        "secondary_text_color": "",
+        "btn_bg": "",
+        "btn_text": "",
+        "btn_border": "",
+        "btn_bg_hover": "",
+        "btn_text_hover": "",
+        "btn_border_hover": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mb": 24,
+        "padding_bottom_mb": 24,
+        "text_align": "left",
+        "text_align_mobile": "center",
+        "vertical_alignment": "center",
+        "image_ratio": "adapt",
+        "image_radius": 0
+      }
     }
   },
   "order": [
     "main",
     "seo_section_D9QYFe",
-    "seo_section_X4XDbz"
+    "seo_section_X4XDbz",
+    "two_side_section_hAXBeQ"
   ]
 }
